@@ -1,0 +1,9 @@
+---
+:backends:
+  - yaml
+:hierarchy:
+  - "nodes/%{::clientcert}"
+  - "common"
+:merge_behavior: deeper
+:yaml:
+  :datadir: "/etc/puppetlabs/puppet/hieradata"

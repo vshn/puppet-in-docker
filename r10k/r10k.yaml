@@ -1,0 +1,7 @@
+---
+:cachedir: /opt/puppetlabs/r10k/cache
+:sources:
+  puppet:
+    basedir: /etc/puppetlabs/code/environments
+    prefix: false
+    remote: R10K_REPO

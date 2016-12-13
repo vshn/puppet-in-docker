@@ -1,0 +1,95 @@
+version: '2.1'
+
+services:
+  haproxy:
+    hostname: puppet
+    domainname: local
+    build: haproxy
+    volumes:
+      - haproxy_ssl:/usr/local/etc/haproxy/ssl/
+    links:
+      - puppetdb:puppetdb.local
+      - puppetca:puppetca.local
+      - puppetserver:puppetserver.local
+    ports:
+      - 8081:8081
+      - 8140:8140
+      - 9000:9000
+  puppetca:
+    hostname: puppetca
+    domainname: local
+    build: puppetserver
+    volumes:
+      - ca_ssl:/etc/puppetlabs/puppet/ssl/
+      - ca_data:/opt/puppetlabs/server/data/puppetserver/
+    environment:
+      - CA=enabled
+  puppetserver:
+    hostname: puppetserver
+    domainname: local
+    build: puppetserver
+    volumes:
+      - server_ssl:/etc/puppetlabs/puppet/ssl/
+      - server_data:/opt/puppetlabs/server/data/puppetserver/
+      - r10k_env:/etc/puppetlabs/code/environments/
+    links:
+      - puppetdb:puppetdb.local
+      - puppetca:puppetca.local
+    environment:
+      - PUPPETDB_SERVER_URL=puppetdb.local:8081
+  puppetdb:
+    hostname: puppetdb
+    domainname: local
+    build: puppetdb
+    volumes:
+      - db_ssl:/etc/puppetlabs/puppet/ssl/
+    links:
+      - postgres
+      - puppetca:puppetca.local
+  postgres:
+    hostname: postgres
+    domainname: local
+    build: postgres
+    environment:
+      - POSTGRES_PASSWORD=puppetdb
+      - POSTGRES_USER=puppetdb
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+  r10k:
+    hostname: r10k
+    domainname: local
+    build: r10k
+    environment:
+      - R10K_REPO=git@github.com:myorg/control.git
+      - R10K_DEPLOY_KEY="this is not a key"
+      - MCO_R10K_POLICY="policy default deny"
+    volumes:
+      - r10k_env:/etc/puppetlabs/code/environments
+      - r10k_cache:/opt/puppetlabs/r10k/cache
+      - r10k_ssl:/etc/puppetlabs/puppet/ssl
+    links:
+      - nats:nats.local
+      - puppetca:puppetca.local
+  nats:
+    hostname: nats
+    domainname: local
+    build: nats
+    volumes:
+      - nats_ssl:/etc/nats/ssl
+    links:
+      - puppetca:puppetca.local
+    ports:
+      - 4222:4222
+
+volumes:
+  ca_data:
+  ca_ssl:
+  db_ssl:
+  haproxy_ssl:
+  nats_ssl:
+  postgres:
+  r10k_cache:
+  r10k_env:
+  r10k_ssl:
+  server_data:
+  server_ssl:

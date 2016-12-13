@@ -1,0 +1,67 @@
+global
+  log  /dev/log local0
+  log  /dev/log local1 notice
+  maxconn  2048
+  tune.ssl.default-dh-param  2048
+
+defaults
+  log  global
+  mode  http
+  stats  enable
+  timeout  connect 5s
+  timeout  client 50s
+  timeout  tunnel 1h
+  timeout  http-request 10s
+  timeout  server 61m
+
+listen stats
+  bind *:9000
+  mode http
+  stats enable
+  stats hide-version
+  stats refresh 30s
+  stats show-node
+  stats auth {{getenv "STATS_CRED"}}
+  stats uri /
+
+frontend puppet-frontend
+  bind *:8140 ssl crt /usr/local/etc/haproxy/ssl/haproxy.pem ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem verify optional crl-file /usr/local/etc/haproxy/ssl/crl.pem
+  mode http
+  http-request set-header X-Client-Verify-Real  %[ssl_c_verify]
+  http-request set-header X-Client-Verify NONE if !{ hdr_val(X-Client-Verify-Real) eq 0 }
+  http-request set-header X-Client-Verify SUCCESS if { hdr_val(X-Client-Verify-Real) eq 0 }
+  http-request set-header X-Client-DN CN=%{+Q}[ssl_c_s_dn(cn)]
+  http-request set-header X-SSL-Subject CN=%{+Q}[ssl_c_s_dn(cn)]
+  http-request set-header X-Client-Cert -----BEGIN\ CERTIFICATE-----%%0A%[ssl_c_der,base64]%%0A-----END\ CERTIFICATE----- if { hdr(X-Client-Verify) eq NONE }
+  acl ca path -m sub certificate
+  default_backend puppet-backend
+  use_backend puppet-ca-backend if ca
+
+frontend puppetdb-frontend
+  bind *:8081 ssl crt /usr/local/etc/haproxy/ssl/haproxy.pem ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem verify optional
+  mode http
+  http-request set-header X-Client-Verify-Real  %[ssl_c_verify]
+  http-request set-header X-Client-Verify NONE if !{ hdr_val(X-Client-Verify-Real) eq 0 }
+  http-request set-header X-Client-Verify SUCCESS if { hdr_val(X-Client-Verify-Real) eq 0 }
+  http-request set-header X-Client-DN CN=%{+Q}[ssl_c_s_dn(cn)]
+  http-request set-header X-SSL-Subject CN=%{+Q}[ssl_c_s_dn(cn)]
+  default_backend puppet-db-backend
+
+backend puppet-backend
+  balance roundrobin
+  mode http
+  option tcp-check
+  stick on src
+  stick-table type ip size 1m expire 1m
+  server puppetserver {{getenv "PUPPETSERVER_BACKEND"}}:8140 check port 8140 inter 5s ssl verify required ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem crl-file /usr/local/etc/haproxy/ssl/crl.pem
+
+backend puppet-ca-backend
+  mode http
+  option tcp-check
+  server puppetca {{getenv "PUPPETCA_BACKEND"}}:8140 check port 8140 inter 5s ssl verify required ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem crl-file /usr/local/etc/haproxy/ssl/crl.pem
+
+backend puppet-db-backend
+  mode http
+  option tcp-check
+  server puppetdb {{getenv "PUPPETDB_BACKEND"}}:8081 check port 8081 inter 5s ssl verify required ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem crl-file /usr/local/etc/haproxy/ssl/crl.pem
+

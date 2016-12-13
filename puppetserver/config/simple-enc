@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cat "/etc/puppetlabs/puppet/encdata/$1.yaml"

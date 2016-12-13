@@ -1,0 +1,22 @@
+# MCollective
+mcollective_choria::package_dependencies:
+  "build-essential": present
+mcollective::common_config:
+  identity: r10k.local
+mcollective::client: true
+mcollective::service_enable: false
+mcollective::service_ensure: stopped
+mcollective::facts_refresh_interval: 0
+mcollective::policy_default: allow
+mcollective::purge: true
+
+# Choria specific
+mcollective_choria::config:
+  "puppetserver_host": "puppetserver.local"
+  "puppetserver_port": 8140
+  "puppetca_host": "puppetca.local"
+  "puppetca_port": 8140
+  "puppetdb_host": "puppetdb.local"
+  "puppetdb_port": 8081
+  "middleware_hosts":
+    - "nats.local:4222"
