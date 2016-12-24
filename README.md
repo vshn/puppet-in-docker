@@ -8,15 +8,15 @@
 This repository contains Dockerfiles for a complete Puppet 4 infrastructure
 running in Docker. The following components are used:
 
-* **HAProxy**: Reverse proxy for splitting traffic between CA and catalog
+* [**HAProxy**](http://www.haproxy.org/): Reverse proxy for splitting traffic between CA and catalog
   compilation
-* **Puppetserver**: Latest version of Puppetserver for CA mode and catalog
+* [**Puppetserver**](https://docs.puppet.com/puppetserver/latest/): Latest version of Puppetserver for CA mode and catalog
   compilation only mode
-* **PuppetDB**: Latest PuppetDB for storing reports, facts and exported resources
-* **Postgres**: Storage backend for PuppetDB
-* **r10k**: Puppet code deployment, featuring MCollective support
-* **NATS**: Middleware for MCollective (Choria)
-* **Puppet explorer**: Dashboard for insights into PuppetDB data
+* [**PuppetDB**](https://docs.puppet.com/puppetdb/latest/): Latest PuppetDB for storing reports, facts and exported resources
+* [**Postgres**](https://www.postgresql.org/): Storage backend for PuppetDB
+* [**r10k**](https://docs.puppet.com/pe/latest/r10k.html): Puppet code deployment, featuring MCollective support
+* [**NATS**](https://nats.io/): Middleware for MCollective ([Choria](http://choria.io/))
+* [**Puppet explorer**](https://github.com/spotify/puppetexplorer): Dashboard for insights into PuppetDB data
 
 With the provided Docker Compose file all components can be started with a simple
 `docker-compose up`. This will take some time, as all Docker images are created locally
@@ -69,8 +69,12 @@ Thanks a lot to R.I.Pienaar!
 
 ## Credits
 
+Inspiration for these Dockerfiles are coming from several sources. Especially we'd like
+to thank:
+
 * Puppet for providing many good example Dockerfiles under [puppetlabs/puppet-in-docker](https://github.com/puppetlabs/puppet-in-docker)
-* Camptocamp for providing nice Dockerfiles and Rancher templates
+* Camptocamp for providing nice [Dockerfiles](https://github.com/camptocamp?q=docker), [Rancher templates](https://github.com/camptocamp/camptocamp-rancher-catalog/tree/master/templates/puppet) and the idea for the
+  [flexible Docker entrypoint](https://github.com/camptocamp/camptocamp-rancher-catalog/tree/master/templates/puppet) using `run-parts`.
 
 ## Known issues / Todo list
 
