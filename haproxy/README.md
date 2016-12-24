@@ -1,5 +1,7 @@
 # HAProxy for Puppetserver access
 
+[Docker Hub: `vshn/puppet-haproxy`](https://hub.docker.com/r/vshn/puppet-haproxy/)
+
 ## Introduction
 
 This HAProxy is configured to split traffic between CA and compilation traffic.

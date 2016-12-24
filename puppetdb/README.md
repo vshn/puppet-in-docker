@@ -1,5 +1,7 @@
 # PuppetDB
 
+[Docker Hub: `vshn/puppet-puppetdb`](https://hub.docker.com/r/vshn/puppet-puppetdb/)
+
 ## Introduction
 
 PuppetDB is used for storage backend for Puppetserver. This image configures PuppetDB

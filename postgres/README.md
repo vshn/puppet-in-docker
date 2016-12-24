@@ -1,5 +1,7 @@
 # Postgres for PuppetDB
 
+[Docker Hub: `vshn/puppet-postgres`](https://hub.docker.com/r/vshn/puppet-postgres/)
+
 ## Introduction
 
 Postgres is used as storage backend for PuppetDB. This image configures Postgres for

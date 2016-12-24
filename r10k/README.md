@@ -1,5 +1,7 @@
 # r10k including MCollective
 
+[Docker Hub: `vshn/puppet-r10k`](https://hub.docker.com/r/vshn/puppet-r10k/)
+
 ## Introduction
 
 r10k is used for Puppet code deployment. It features integration with MCollective so that

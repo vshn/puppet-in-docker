@@ -1,5 +1,7 @@
 # Puppetserver
 
+[Docker Hub: `vshn/puppet-puppetserver`](https://hub.docker.com/r/vshn/puppet-puppetserver/)
+
 ## Introduction
 
 Puppetserver image for running Puppetserver in Docker. Can be configured to be a CA or

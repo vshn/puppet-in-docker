@@ -1,5 +1,7 @@
 # NATS - Messaging middleware for MCollective
 
+[Docker Hub: `vshn/puppet-nats`](https://hub.docker.com/r/vshn/puppet-nats/)
+
 ## Introduction
 
 NATS is used as messaging middleware for MCollective. The installation is using
