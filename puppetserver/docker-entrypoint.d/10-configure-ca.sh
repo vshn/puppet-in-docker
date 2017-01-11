@@ -4,6 +4,14 @@ CN=$(hostname)
 CA_SERVER=${CA_SERVER:-puppetca.local}
 AUTOSIGN=${AUTOSIGN:-true}
 
+if [ "${USE_LEGACY_CA_API}" == "true" ]; then
+  CA_API_URL=https://${CA_SERVER}:8140/production/certificate/ca
+  CRL_API_URL=https://${CA_SERVER}:8140/production/certificate_revocation_list/crl
+else
+  CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
+  CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
+fi
+
 # Configure Puppetserver to be a CA when enabled
 if [ "${CA}" != "enabled" ]; then
   echo "---> Disabling CA service"
@@ -15,11 +23,11 @@ EOF
   # Request certificate if not already available
   if [ ! -f /etc/puppetlabs/puppet/ssl/certs/${CN}.pem ]; then
     # Wait for CA API to be available
-    while ! curl -k -s -f https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca > /dev/null; do
+    while ! curl -k -s -f $CA_API_URL > /dev/null; do
       echo "---> Waiting for CA API at ${CA_SERVER}..."
       sleep 10
     done
-    su -s /bin/sh puppet -c "/usr/local/bin/request-cert.rb ${CA_SERVER} ${CN}"
+    su -s /bin/sh puppet -c "/usr/local/bin/request-cert.rb ${CA_SERVER} ${CN} ${USE_LEGACY_CA_API}"
   fi
 
   cat <<EOF>/etc/puppetlabs/puppetserver/conf.d/webserver.conf
@@ -38,7 +46,7 @@ EOF
   if [ "${SKIP_CRL_DOWNLOAD}" == "true" ]; then
     echo "---> Skipping CRL download from ${CA_SERVER}"
   else
-    while ! curl -k -s -f https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca > /etc/puppetlabs/puppet/ssl/crl.pem; do
+    while ! curl -k -s -f $CRL_API_URL > /etc/puppetlabs/puppet/ssl/crl.pem; do
       echo "---> Trying to download latest CRL from ${CA_SERVER}"
       sleep 10
     done

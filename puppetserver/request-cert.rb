@@ -105,7 +105,12 @@ def fetch_ca
 
   server = puppetca_server
 
-  req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/ca", "Content-Type" => "text/plain")
+  # ARGV 2 is the legacy switch
+  if ARGV[2] == "true"
+    req = Net::HTTP::Get.new("/production/certificate/ca", "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/ca", "Content-Type" => "text/plain")
+  end
   resp, _ = https(server).request(req)
 
   if resp.code == "200"
@@ -120,7 +125,12 @@ end
 def fetch_crl
   server = puppetca_server
 
-  req = Net::HTTP::Get.new("/puppet-ca/v1/certificate_revocation_list/ca", "Content-Type" => "text/plain")
+  # ARGV 2 is the legacy switch
+  if ARGV[2] == "true"
+    req = Net::HTTP::Get.new("/production/certificate_revocation_list/crl", "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Get.new("/puppet-ca/v1/certificate_revocation_list/ca", "Content-Type" => "text/plain")
+  end
   resp, _ = https(server).request(req)
 
   if resp.code == "200"
@@ -138,7 +148,12 @@ def request_cert
 
   server = puppetca_server
 
-  req = Net::HTTP::Put.new("/puppet-ca/v1/certificate_request/%s?environment=production" % certname, "Content-Type" => "text/plain")
+  # ARGV 2 is the legacy switch
+  if ARGV[2] == "true"
+    req = Net::HTTP::Put.new("/production/certificate_request/%s" % certname, "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Put.new("/puppet-ca/v1/certificate_request/%s?environment=production" % certname, "Content-Type" => "text/plain")
+  end
   req.body = csr
   resp, _ = https(server).request(req)
 
@@ -193,7 +208,12 @@ end
 def attempt_fetch_cert
   return true if has_client_public_cert?
 
-  req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/%s" % certname, "Accept" => "text/plain")
+  # ARGV 2 is the legacy switch
+  if ARGV[2] == "true"
+    req = Net::HTTP::Get.new("/production/certificate/%s" % certname, "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/%s" % certname, "Accept" => "text/plain")
+  end
   resp, _ = https(puppetca_server).request(req)
 
   if resp.code == "200"
