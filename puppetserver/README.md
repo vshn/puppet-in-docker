@@ -11,14 +11,15 @@ a compiler only.
 
 ### Environment variables
 
-| Name                | Description                               | Default value  |
-| ----                | ----------------------------------------- | -------------- |
-| AUTOSIGN            | Puppet CA autosign configuration          | true           |
-| CA                  | When "enabled" CA service will be enabled | disabled       |
-| CA_SERVER           | Puppet CA server to request certificate   | puppetca.local |
-| CN                  | CN for certificate request                | $hostname      |
-| PUPPETDB_SERVER_URL | URL to PuppetDB                           | -              |
-| PUPPET_ENC          | Configuration for external_nodes          | -              |
+| Name                | Description                                     | Default value  |
+| ----                | -----------------------------------------       | -------------- |
+| AUTOSIGN            | Puppet CA autosign configuration                | true           |
+| CA                  | When "enabled" CA service will be enabled       | disabled       |
+| CA_SERVER           | Puppet CA server to request certificate         | puppetca.local |
+| CN                  | CN for certificate request                      | $hostname      |
+| PUPPETDB_SERVER_URL | URL to PuppetDB                                 | -              |
+| PUPPET_ENC          | Configuration for external_nodes                | -              |
+| SKIP_CRL_DOWNLOAD   | If value is true, skips download of CRL from CA | -              |
 
 ### Puppetserver configuration
 

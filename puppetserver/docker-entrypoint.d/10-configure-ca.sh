@@ -35,11 +35,15 @@ webserver: {
 }
 EOF
 
-  while ! curl -k -s -f https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca > /etc/puppetlabs/puppet/ssl/crl.pem; do
-    echo "---> Trying to download latest CRL from ${CA_SERVER}"
-    sleep 10
-  done
-  echo "---> Downloaded latest CRL from ${CA_SERVER}"
+  if [ "${SKIP_CRL_DOWNLOAD}" == "true" ]; then
+    echo "---> Skipping CRL download from ${CA_SERVER}"
+  else
+    while ! curl -k -s -f https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca > /etc/puppetlabs/puppet/ssl/crl.pem; do
+      echo "---> Trying to download latest CRL from ${CA_SERVER}"
+      sleep 10
+    done
+    echo "---> Downloaded latest CRL from ${CA_SERVER}"
+  fi
 
 else
   echo "---> Puppetserver acting as CA"
