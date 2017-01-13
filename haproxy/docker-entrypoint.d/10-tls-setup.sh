@@ -8,7 +8,7 @@ HAPROXY_PEM_FILE="/usr/local/etc/haproxy/ssl/haproxy.pem"
 
 if [ "${USE_LEGACY_CA_API}" == "true" ]; then
   CA_API_URL=https://${CA_SERVER}:8140/production/certificate/ca
-  CRL_API_URL=https://${CA_SERVER}:8140/production/certificate_revocation_list/crl
+  CRL_API_URL=https://${CA_SERVER}:8140/production/certificate_revocation_list/ca
 else
   CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
   CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
