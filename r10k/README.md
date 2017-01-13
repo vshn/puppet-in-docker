@@ -21,12 +21,13 @@ command. This needs adjustment for a production installation!
 
 ### Environment variables
 
-| Name            | Description                                    | Default value        |
-| ----            | -----------------------------------------      | -------------        |
-| CA_SERVER       | Puppet CA server to request certificate        | puppetca.local       |
-| MCO_R10K_POLICY | Choria policy for r10k plugin                  | policy default allow |
-| R10K_DEPLOY_KEY | SSH key for accessing private git repositories | -                    |
-| R10K_REPO       | r10k control repository                        | -                    |
+| Name              | Description                                     | Default value        |
+| ----              | -----------------------------------------       | -------------        |
+| CA_SERVER         | Puppet CA server to request certificate         | puppetca.local       |
+| MCO_R10K_POLICY   | Choria policy for r10k plugin                   | policy default allow |
+| R10K_DEPLOY_KEY   | SSH key for accessing private git repositories  | -                    |
+| R10K_REPO         | r10k control repository                         | -                    |
+| USE_LEGACY_CA_API | If set to true, sets CA API URLs for Puppet 3.8 | -                    |
 
 ### r10k configuration
 

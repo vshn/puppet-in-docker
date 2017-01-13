@@ -27,7 +27,12 @@ EOF
       echo "---> Waiting for CA API at ${CA_SERVER}..."
       sleep 10
     done
-    su -s /bin/sh puppet -c "/usr/local/bin/request-cert.rb ${CA_SERVER} ${CN} ${USE_LEGACY_CA_API}"
+    su -s /bin/sh puppet -c "/opt/puppetlabs/puppet/bin/ruby \
+      /usr/local/bin/request-cert.rb \
+      --caserver ${CA_SERVER} \
+      --cn ${CN} \
+      --legacy ${USE_LEGACY_CA_API} \
+      --ssldir /etc/puppetlabs/puppet/ssl"
   fi
 
   cat <<EOF>/etc/puppetlabs/puppetserver/conf.d/webserver.conf

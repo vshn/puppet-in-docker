@@ -1,16 +1,17 @@
 #!/bin/bash
+VOLUME_PREFIX=${VOLUME_PREFIX:-docker}
 volumes="
-docker_ca_data
-docker_ca_ssl
-docker_db_ssl
-docker_haproxy_ssl
-docker_nats_ssl
-docker_postgres
-docker_r10k_cache
-docker_r10k_env
-docker_r10k_ssl
-docker_server_data
-docker_server_ssl
+${VOLUME_PREFIX}_ca_data
+${VOLUME_PREFIX}_ca_ssl
+${VOLUME_PREFIX}_db_ssl
+${VOLUME_PREFIX}_haproxy_ssl
+${VOLUME_PREFIX}_nats_ssl
+${VOLUME_PREFIX}_postgres
+${VOLUME_PREFIX}_r10k_cache
+${VOLUME_PREFIX}_r10k_env
+${VOLUME_PREFIX}_r10k_ssl
+${VOLUME_PREFIX}_server_data
+${VOLUME_PREFIX}_server_ssl
 "
 
 case $1 in
