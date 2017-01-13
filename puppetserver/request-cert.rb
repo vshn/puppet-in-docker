@@ -134,7 +134,7 @@ def fetch_crl
   server = puppetca_server
 
   if @options[:legacy] == "true"
-    req = Net::HTTP::Get.new("/production/certificate_revocation_list/crl", "Content-Type" => "text/plain")
+    req = Net::HTTP::Get.new("/production/certificate_revocation_list/ca", "Content-Type" => "text/plain")
   else
     req = Net::HTTP::Get.new("/puppet-ca/v1/certificate_revocation_list/ca", "Content-Type" => "text/plain")
   end
