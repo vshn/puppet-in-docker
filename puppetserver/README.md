@@ -20,6 +20,7 @@ a compiler only.
 | PUPPETDB_SERVER_URL | URL to PuppetDB                                 | -              |
 | PUPPET_ENC          | Configuration for external_nodes                | -              |
 | SKIP_CRL_DOWNLOAD   | If value is true, skips download of CRL from CA | -              |
+| USE_LEGACY_CA_API   | If set to true, sets CA API URLs for Puppet 3.8 | -              |
 
 ### Puppetserver configuration
 

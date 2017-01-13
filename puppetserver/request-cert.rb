@@ -1,18 +1,27 @@
-#!/opt/puppetlabs/puppet/bin/ruby
+#!/bin/env ruby
 require "net/http"
 require "resolv"
 require "fileutils"
+require "optparse"
+
+@options = {}
+OptionParser.new do |opt|
+  opt.on('--ssldir SSLDIR') { |o| @options[:ssldir] = o }
+  opt.on('--legacy [ true | false ]') { |o| @options[:legacy] = o }
+  opt.on('--caserver CASERVER') { |o| @options[:caserver] = o }
+  opt.on('--cn COMMONNAME') { |o| @options[:cn] = o }
+end.parse!
 
 def ssl_dir
-  "/etc/puppetlabs/puppet/ssl"
+  @options[:ssldir]
 end
 
 def puppetca_server
-  {:target => ARGV[0], :port => "8140"}
+  {:target => @options[:caserver], :port => "8140"}
 end
 
 def certname
-  ARGV[1]
+  @options[:cn]
 end
 
 def ca_path
@@ -105,7 +114,11 @@ def fetch_ca
 
   server = puppetca_server
 
-  req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/ca", "Content-Type" => "text/plain")
+  if @options[:legacy] == "true"
+    req = Net::HTTP::Get.new("/production/certificate/ca", "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/ca", "Content-Type" => "text/plain")
+  end
   resp, _ = https(server).request(req)
 
   if resp.code == "200"
@@ -120,7 +133,11 @@ end
 def fetch_crl
   server = puppetca_server
 
-  req = Net::HTTP::Get.new("/puppet-ca/v1/certificate_revocation_list/ca", "Content-Type" => "text/plain")
+  if @options[:legacy] == "true"
+    req = Net::HTTP::Get.new("/production/certificate_revocation_list/crl", "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Get.new("/puppet-ca/v1/certificate_revocation_list/ca", "Content-Type" => "text/plain")
+  end
   resp, _ = https(server).request(req)
 
   if resp.code == "200"
@@ -138,7 +155,11 @@ def request_cert
 
   server = puppetca_server
 
-  req = Net::HTTP::Put.new("/puppet-ca/v1/certificate_request/%s?environment=production" % certname, "Content-Type" => "text/plain")
+  if @options[:legacy] == "true"
+    req = Net::HTTP::Put.new("/production/certificate_request/%s" % certname, "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Put.new("/puppet-ca/v1/certificate_request/%s?environment=production" % certname, "Content-Type" => "text/plain")
+  end
   req.body = csr
   resp, _ = https(server).request(req)
 
@@ -193,7 +214,11 @@ end
 def attempt_fetch_cert
   return true if has_client_public_cert?
 
-  req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/%s" % certname, "Accept" => "text/plain")
+  if @options[:legacy] == "true"
+    req = Net::HTTP::Get.new("/production/certificate/%s" % certname, "Content-Type" => "text/plain")
+  else
+    req = Net::HTTP::Get.new("/puppet-ca/v1/certificate/%s" % certname, "Accept" => "text/plain")
+  end
   resp, _ = https(puppetca_server).request(req)
 
   if resp.code == "200"
@@ -211,16 +236,16 @@ $stdout.sync = true
 puts("----> Creating SSL dirs")
 make_ssl_dirs
 
-puts("----> Requesting CA from '%s'" % ARGV[0])
+puts("----> Requesting CA from '%s'" % @options[:caserver])
 fetch_ca
 
-puts("----> Requesting CRL from '%s'" % ARGV[0])
+puts("----> Requesting CRL from '%s'" % @options[:caserver])
 fetch_crl
 
 if waiting_for_cert?
   puts("----> Certificate %s has already been requested, attempting to retrieve it" % certname)
 else
-  puts("----> Requesting certificate for '%s' from '%s'" % [certname, ARGV[0]])
+  puts("----> Requesting certificate for '%s' from '%s'" % [certname, @options[:caserver]])
   request_cert
 end
 

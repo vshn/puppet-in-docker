@@ -12,13 +12,14 @@ for PuppetDB access.
 
 ### Environment variables
 
-| Name                 | Description                               | Default value      |
-| ----                 | ----------------------------------------- | -------------      |
-| PUPPETSERVER_BACKEND | Backend for catalog compilation           | puppetserver.local |
-| PUPPETCA_BACKEND     | Backend for Puppet CA traffic             | puppetca.local     |
-| PUPPETDB_BACKEND     | Backend for PuppetDB                      | puppetdb.local     |
-| STATS_CRED           | HAProxy Statistics credentials            | admin:password     |
-| CA_SERVER            | Puppet CA server to request certificate   | puppetca.local     |
+| Name                 | Description                                     | Default value      |
+| ----                 | -----------------------------------------       | -------------      |
+| CA_SERVER            | Puppet CA server to request certificate         | puppetca.local     |
+| PUPPETCA_BACKEND     | Backend for Puppet CA traffic                   | puppetca.local     |
+| PUPPETDB_BACKEND     | Backend for PuppetDB                            | puppetdb.local     |
+| PUPPETSERVER_BACKEND | Backend for catalog compilation                 | puppetserver.local |
+| STATS_CRED           | HAProxy Statistics credentials                  | admin:password     |
+| USE_LEGACY_CA_API    | If set to true, sets CA API URLs for Puppet 3.8 | -                  |
 
 ## Details
 
