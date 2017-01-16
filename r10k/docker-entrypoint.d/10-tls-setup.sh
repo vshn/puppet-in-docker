@@ -18,6 +18,18 @@ if [ ! -f /etc/puppetlabs/puppet/ssl/certs/${CN}.pem ]; then
     echo "---> Waiting for CA API at ${CA_SERVER}..."
     sleep 10
   done
-  set -e
-  /opt/puppetlabs/puppet/bin/mco choria request_cert
+
+  echo "---> Requesting certificate for ${CN} from ${CA_SERVER}"
+   /opt/puppetlabs/puppet/bin/ruby \
+    /usr/local/bin/request-cert.rb \
+    --caserver ${CA_SERVER} \
+    --cn ${CN} \
+    --legacy ${USE_LEGACY_CA_API} \
+    --ssldir /etc/puppetlabs/puppet/ssl
+
+  if [ ! -f ${CERTFILE} ]; then
+    echo "---> Certificate retrieval failed. Exiting"
+    exit 1
+  fi
+
 fi

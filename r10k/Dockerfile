@@ -53,6 +53,7 @@ RUN mkdir /root/.ssh \
 
 # Add configuration file into the image
 COPY r10k.yaml /etc/puppetlabs/r10k/r10k.yaml
+COPY request-cert.rb /usr/local/bin
 
 # Copy entrypoint into container
 COPY docker-entrypoint.sh /
