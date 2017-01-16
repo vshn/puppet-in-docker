@@ -19,8 +19,9 @@ a compiler only.
 | CN                  | CN for certificate request                      | $hostname      |
 | PUPPETDB_SERVER_URL | URL to PuppetDB                                 | -              |
 | PUPPET_ENC          | Configuration for external_nodes                | -              |
-| SKIP_CRL_DOWNLOAD   | If value is true, skips download of CRL from CA | -              |
+| SKIP_CRL_DOWNLOAD   | If set to true, skips download of CRL from CA   | -              |
 | USE_LEGACY_CA_API   | If set to true, sets CA API URLs for Puppet 3.8 | -              |
+| USE_LEGACY_PUPPETDB | If set to true, uses PuppetDB 2.3 URL           | -              |
 
 ### Puppetserver configuration
 
