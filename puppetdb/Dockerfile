@@ -9,13 +9,11 @@ ENV PUPPETDB_VERSION="4.3.0" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 LABEL org.label-schema.vendor="VSHN AG" \
-      org.label-schema.url="https://github.com/vshn/docker-puppet" \
+      org.label-schema.url="https://github.com/vshn/puppet-in-docker" \
       org.label-schema.name="PuppetDB" \
-      org.label-schema.license="Apache-2.0" \
-      org.label-schema.version=$PUPPETDB_VERSION \
-      org.label-schema.vcs-url="https://github.com/vshn/docker-puppet" \
-      org.label-schema.vcs-ref="" \
-      org.label-schema.build-date="" \
+      org.label-schema.license="BSD-3-Clause" \
+      org.label-schema.version=$PUPPET_SERVER_VERSION \
+      org.label-schema.vcs-url="https://github.com/vshn/puppet-in-docker" \
       org.label-schema.schema-version="1.0" \
       com.puppet.dockerfile="/Dockerfile"
 

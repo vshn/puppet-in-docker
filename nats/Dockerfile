@@ -4,13 +4,11 @@ ENV DUMB_INIT_VERSION="1.2.0" \
     NATS_VERSION="0.9.4"
 
 LABEL org.label-schema.vendor="VSHN AG" \
-      org.label-schema.url="https://github.com/vshn/docker-puppet" \
-      org.label-schema.name="Puppet NATS Broker" \
-      org.label-schema.license="Apache-2.0" \
-      org.label-schema.version="1" \
-      org.label-schema.vcs-url="https://github.com/vshn/docker-puppet" \
-      org.label-schema.vcs-ref="" \
-      org.label-schema.build-date="" \
+      org.label-schema.url="https://github.com/vshn/puppet-in-docker" \
+      org.label-schema.name="Puppet Choria NATS Broker" \
+      org.label-schema.license="BSD-3-Clause" \
+      org.label-schema.version=$PUPPET_SERVER_VERSION \
+      org.label-schema.vcs-url="https://github.com/vshn/puppet-in-docker" \
       org.label-schema.schema-version="1.0" \
       com.puppet.dockerfile="/Dockerfile"
 
