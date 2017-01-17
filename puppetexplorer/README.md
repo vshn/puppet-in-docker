@@ -20,6 +20,12 @@ HAproxy which is also available in this repository.
 | ----            | -----------                                                 | -------------  |
 | PUPPETDB_SERVER | Hostname of PuppetDB to which the reverse proxy connects to | puppetdb.local |
 
+### Support for PuppetDB 2.3.x
+
+To support migration scenarios there is a special Dockerfile available, suitably
+called `Dockerfile.legacy`. It installs Puppetexplorer 1.5 which is the last version
+which supports this version of PuppetDB.
+
 ## Details
 
 * Ports exposed: 8080

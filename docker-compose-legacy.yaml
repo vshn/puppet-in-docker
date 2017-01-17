@@ -1,0 +1,90 @@
+version: '2.1'
+
+services:
+  haproxy:
+    image: vshn/puppet-haproxy
+    hostname: puppet
+    domainname: local
+    volumes:
+      - haproxy_ssl:/usr/local/etc/haproxy/ssl/
+    links:
+      - puppetca:puppetca.local
+      - puppetdb:puppetdb.local
+      - puppetexplorer:puppetexplorer.local
+      - puppetserver:puppetserver.local
+    ports:
+      - 8081:8081
+      - 8082:8082
+      - 8140:8140
+      - 9000:9000
+    environment:
+      - CA_SERVER=puppet
+      - PUPPETCA_BACKEND=puppet
+      - PUPPETDB_BACKEND=puppet
+      - USE_LEGACY_CA_API=true
+    extra_hosts:
+      - puppet:IP.OF.MY.OLDPUPPETMASTER
+  puppetserver:
+    image: vshn/puppet-puppetserver:legacy
+    hostname: puppetserver
+    domainname: local
+    volumes:
+      - server_ssl:/etc/puppetlabs/puppet/ssl/
+      - server_data:/opt/puppetlabs/server/data/puppetserver/
+      - r10k_env:/etc/puppetlabs/code/environments/
+    environment:
+      - CA_SERVER=puppet
+      - PUPPETDB_SERVER_URL=puppet:8081
+      - PUPPET_ENC=/etc/puppetlabs/puppet/simple-enc
+      - USE_LEGACY_CA_API=true
+      - USE_LEGACY_PUPPETDB=true
+    extra_hosts:
+      - puppet:IP.OF.MY.OLDPUPPETMASTER
+  puppetexplorer:
+    image: vshn/puppet-puppetexplorer:legacy
+    hostname: puppetexplorer
+    domainname: local
+    environment:
+      - PUPPETDB_SERVER=IP.OF.MY.OLDPUPPETDB
+  r10k:
+    image: vshn/puppet-r10k
+    hostname: r10k
+    domainname: local
+    environment:
+      - R10K_REPO=
+    volumes:
+      - r10k_env:/etc/puppetlabs/code/environments
+      - r10k_cache:/opt/puppetlabs/r10k/cache
+      - r10k_ssl:/etc/puppetlabs/puppet/ssl
+    environment:
+      - CA_SERVER=puppet
+      - MCO_R10K_POLICY="policy default deny"
+      - R10K_DEPLOY_KEY="this is not a key"
+      - R10K_REPO=git@github.com:myorg/control.git
+      - USE_LEGACY_CA_API=true
+    links:
+      - nats:nats.local
+    extra_hosts:
+      - puppet:IP.OF.MY.OLDPUPPETMASTER
+  nats:
+    image: vshn/puppet-nats
+    hostname: nats
+    domainname: local
+    volumes:
+      - nats_ssl:/etc/nats/ssl
+    ports:
+      - 4222:4222
+    environment:
+      - CA_SERVER=puppet
+      - USE_LEGACY_CA_API=true
+    extra_hosts:
+      - puppet:IP.OF.MY.OLDPUPPETMASTER
+
+volumes:
+  haproxy_ssl:
+  nats_ssl:
+  r10k_cache:
+  r10k_env:
+  r10k_ssl:
+  server_data:
+  server_ssl:

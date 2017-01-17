@@ -38,6 +38,12 @@ COPY hiera.yaml /etc/puppetlabs/puppet/hiera.yaml
 Other scripts, f.e. a custom ENC provider should also be copied into the image
 using this way.
 
+### Support for PuppetDB 2.3.x
+
+To support migration scenarios there is a special Dockerfile available, suitably
+called `Dockerfile.legacy`. It installs `puppetdb-terminus` from the old Puppetlabs
+Apt repository (instead of `puppetdb-termini`).
+
 ## Details
 
 * Ports exposed: 8140
