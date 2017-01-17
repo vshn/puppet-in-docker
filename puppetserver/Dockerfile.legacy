@@ -22,7 +22,7 @@ EXPOSE 8140
 ENTRYPOINT ["dumb-init", "/docker-entrypoint.sh"]
 CMD ["puppetserver"]
 
-COPY Dockerfile /
+COPY Dockerfile.legacy /Dockerfile
 
 # TODO checksum check
 RUN locale-gen en_US.UTF-8 && apt-get update && \
