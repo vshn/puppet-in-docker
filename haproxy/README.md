@@ -18,6 +18,7 @@ for PuppetDB access.
 | PUPPETCA_BACKEND     | Backend for Puppet CA traffic                   | puppetca.local     |
 | PUPPETDB_BACKEND     | Backend for PuppetDB                            | puppetdb.local     |
 | PUPPETSERVER_BACKEND | Backend for catalog compilation                 | puppetserver.local |
+| SKIP_CRL_DOWNLOAD    | If set to true, skips download of CRL from CA   | -                  |
 | STATS_CRED           | HAProxy Statistics credentials                  | admin:password     |
 | USE_LEGACY_CA_API    | If set to true, sets CA API URLs for Puppet 3.8 | -                  |
 
