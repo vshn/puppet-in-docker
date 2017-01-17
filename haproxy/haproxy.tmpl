@@ -38,14 +38,19 @@ frontend puppet-frontend
   use_backend puppet-ca-backend if ca
 
 frontend puppetdb-frontend
-  bind *:8081 ssl crt /usr/local/etc/haproxy/ssl/haproxy.pem ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem verify optional
+  bind *:8081 ssl crt /usr/local/etc/haproxy/ssl/haproxy.pem ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem verify optional crl-file /usr/local/etc/haproxy/ssl/crl.pem
   mode http
   http-request set-header X-Client-Verify-Real  %[ssl_c_verify]
   http-request set-header X-Client-Verify NONE if !{ hdr_val(X-Client-Verify-Real) eq 0 }
   http-request set-header X-Client-Verify SUCCESS if { hdr_val(X-Client-Verify-Real) eq 0 }
   http-request set-header X-Client-DN CN=%{+Q}[ssl_c_s_dn(cn)]
   http-request set-header X-SSL-Subject CN=%{+Q}[ssl_c_s_dn(cn)]
-  default_backend puppet-db-backend
+  default_backend puppetdb-backend
+
+frontend puppetexplorer-frontend
+  bind *:8082
+  mode http
+  default_backend puppetexplorer-backend
 
 backend puppet-backend
   balance roundrobin
@@ -60,8 +65,12 @@ backend puppet-ca-backend
   option tcp-check
   server puppetca {{getenv "PUPPETCA_BACKEND"}}:8140 check port 8140 inter 5s ssl verify required ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem crl-file /usr/local/etc/haproxy/ssl/crl.pem
 
-backend puppet-db-backend
+backend puppetdb-backend
   mode http
   option tcp-check
   server puppetdb {{getenv "PUPPETDB_BACKEND"}}:8081 check port 8081 inter 5s ssl verify required ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem crl-file /usr/local/etc/haproxy/ssl/crl.pem
 
+backend puppetexplorer-backend
+  mode http
+  option tcp-check
+  server puppetexplorer {{getenv "PUPPETEXPLORER_BACKEND"}}:8080 check port 8080 inter 5s

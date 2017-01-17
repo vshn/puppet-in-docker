@@ -11,8 +11,10 @@ services:
       - puppetdb:puppetdb.local
       - puppetca:puppetca.local
       - puppetserver:puppetserver.local
+      - puppetexplorer:puppetexplorer.local
     ports:
       - 8081:8081
+      - 8082:8082
       - 8140:8140
       - 9000:9000
   puppetca:
@@ -46,6 +48,12 @@ services:
     links:
       - postgres
       - puppetca:puppetca.local
+  puppetexplorer:
+    hostname: puppetexplorer
+    domainname: local
+    build: puppetexplorer
+    links:
+      - puppetdb:puppetdb.local
   postgres:
     hostname: postgres
     domainname: local

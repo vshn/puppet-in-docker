@@ -22,6 +22,7 @@ else
     echo "---> Trying to download latest CRL from ${CA_SERVER}"
     sleep 10
   done
+  chown haproxy $CRL_FILE
   echo "---> Downloaded latest CRL from ${CA_SERVER}"
 fi
 
