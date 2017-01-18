@@ -1,0 +1,52 @@
+FROM ubuntu:16.04
+
+ENV PUPPET_AGENT_VERSION="1.8.0" \
+    PUPPET_MODULE_R10K_VERSION="4.1.0" \
+    DUMB_INIT_VERSION="1.2.0" \
+    UBUNTU_CODENAME="xenial" \
+    PUPPET_MODULE_MCOLLECTIVE_VERSION="0.0.21" \
+    MCO_CLIENT_USER="deployer" \
+    PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
+
+LABEL org.label-schema.vendor="VSHN AG" \
+      org.label-schema.url="https://github.com/vshn/puppet-in-docker" \
+      org.label-schema.name="Puppet Code Deployer" \
+      org.label-schema.license="BSD-3-Clause" \
+      org.label-schema.version=$PUPPET_SERVER_VERSION \
+      org.label-schema.vcs-url="https://github.com/vshn/puppet-in-docker" \
+      org.label-schema.schema-version="1.0" \
+      com.puppet.dockerfile="/Dockerfile"
+
+ENTRYPOINT ["dumb-init", "/docker-entrypoint.sh"]
+
+# TODO checksum check
+RUN apt-get update && \
+    apt-get install -y wget git netcat && \
+    wget https://apt.puppetlabs.com/puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
+    wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    dpkg -i puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
+    dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    rm puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    apt-get update && \
+    apt-get install --no-install-recommends -y puppet-agent="$PUPPET_AGENT_VERSION"-1"$UBUNTU_CODENAME" && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    adduser --disabled-password --gecos "" $MCO_CLIENT_USER
+
+# Install and configure MCollective using Choria from R.I.Pienaar
+RUN puppet module install ripienaar-mcollective --version "$PUPPET_MODULE_MCOLLECTIVE_VERSION" --target-dir /tmp/modules && \
+    puppet module install puppet-r10k --version "$PUPPET_MODULE_R10K_VERSION" --target-dir /tmp/modules
+COPY build/hiera.yaml build/common.yaml build/main.pp /tmp/
+RUN apt-get update && puppet apply --hiera_config=/tmp/hiera.yaml --modulepath=/tmp/modules /tmp/main.pp && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    chown -R $MCO_CLIENT_USER /etc/puppetlabs/mcollective/
+
+# Copy entrypoint into container
+COPY docker-entrypoint.sh /
+COPY /docker-entrypoint.d/* /docker-entrypoint.d/
+ONBUILD COPY /docker-entrypoint.d/* /docker-entrypoint.d/
+
+COPY Dockerfile /
+
+USER $MCO_CLIENT_USER
+WORKDIR /home/$MCO_CLIENT_USER
