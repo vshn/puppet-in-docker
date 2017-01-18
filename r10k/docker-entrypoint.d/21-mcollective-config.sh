@@ -1,15 +1,15 @@
 #!/bin/bash
 
-export IDENTITY=$(hostname)
-export PUPPETCA=${PUPPETCA:-puppetca.local}
-export PUPPETDB=${PUPPETDB:-puppetdb.local}
-export PUPPETSERVER=${PUPPETSERVER:-puppetserver.local}
-export NATS=${NATS:-nats.local:4222}
+CA_SERVER=${CA_SERVER:-puppetca.local}
+IDENTITY=$(hostname)
+NATS=${NATS:-nats.local:4222}
+PUPPETDB=${PUPPETDB:-puppetdb.local}
+PUPPETSERVER=${PUPPETSERVER:-puppetserver.local}
 
 if [ -f /etc/puppetlabs/mcollective/plugin.d/choria.cfg ]; then
   echo "---> Configuring MCollective Choria Plugin"
   sed -i "s|PUPPETSERVER|$PUPPETSERVER|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
-  sed -i "s|PUPPETCA|$PUPPETCA|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
+  sed -i "s|PUPPETCA|$CA_SERVER|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
   sed -i "s|PUPPETDB|$PUPPETDB|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
   sed -i "s|NATS|$NATS|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
 else

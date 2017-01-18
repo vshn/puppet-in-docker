@@ -28,6 +28,9 @@ command. This needs adjustment for a production installation!
 | R10K_DEPLOY_KEY   | SSH key for accessing private git repositories  | -                    |
 | R10K_REPO         | r10k control repository                         | -                    |
 | USE_LEGACY_CA_API | If set to true, sets CA API URLs for Puppet 3.8 | -                    |
+| PUPPETDB          | Hostname of PuppetDB                            | puppetdb.local       |
+| PUPPETSERVER      | Hostname of Puppetserver                        | puppetserver.local   |
+| NATS              | Hostname of NATS Server                         | nats.local:4222      |
 
 ### r10k configuration
 
