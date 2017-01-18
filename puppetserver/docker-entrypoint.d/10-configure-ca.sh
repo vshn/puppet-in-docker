@@ -32,7 +32,8 @@ EOF
       --caserver ${CA_SERVER} \
       --cn ${CN} \
       --legacy ${USE_LEGACY_CA_API} \
-      --ssldir /etc/puppetlabs/puppet/ssl"
+      --ssldir /etc/puppetlabs/puppet/ssl;
+      exit $?"
   fi
 
   cat <<EOF>/etc/puppetlabs/puppetserver/conf.d/webserver.conf
@@ -55,6 +56,7 @@ EOF
       echo "---> Trying to download latest CRL from ${CA_SERVER}"
       sleep 10
     done
+    chown puppet /etc/puppetlabs/puppet/ssl/crl.pem
     echo "---> Downloaded latest CRL from ${CA_SERVER}"
   fi
 
