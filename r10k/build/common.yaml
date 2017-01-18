@@ -1,6 +1,4 @@
 # MCollective
-mcollective_choria::package_dependencies:
-  "build-essential": present
 mcollective::common_config:
   identity: IDENTITY
 mcollective::client: true
