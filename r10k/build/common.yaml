@@ -20,3 +20,4 @@ mcollective_choria::config:
   "puppetdb_port": 8081
   "middleware_hosts":
     - "NATS"
+  "use_srv_records": false
