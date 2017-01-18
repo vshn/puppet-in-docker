@@ -32,7 +32,7 @@ frontend puppet-frontend
   http-request set-header X-Client-Verify SUCCESS if { hdr_val(X-Client-Verify-Real) eq 0 }
   http-request set-header X-Client-DN CN=%{+Q}[ssl_c_s_dn(cn)]
   http-request set-header X-SSL-Subject CN=%{+Q}[ssl_c_s_dn(cn)]
-  http-request set-header X-Client-Cert -----BEGIN\ CERTIFICATE-----%%0A%[ssl_c_der,base64]%%0A-----END\ CERTIFICATE-----\ #
+  http-request set-header X-Client-Cert "-----BEGIN CERTIFICATE-----%%0A%[ssl_c_der,base64]%%0A-----END CERTIFICATE----- #" if { hdr(X-Client-Verify) eq SUCCESS }
   acl ca path -m sub certificate
   default_backend puppet-backend
   use_backend puppet-ca-backend if ca
