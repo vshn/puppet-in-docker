@@ -1,0 +1,22 @@
+# MCollective
+mcollective::common_config:
+  identity: deployer
+mcollective::client: true
+mcollective::server: false
+mcollective::purge: true
+mcollective::service_enable: false
+mcollective::service_ensure: stopped
+mcollective::facts_refresh_interval: 0
+mcollective::policy_default: allow
+
+# Choria specific
+mcollective_choria::config:
+  "puppetserver_host": "PUPPETSERVER"
+  "puppetserver_port": 8140
+  "puppetca_host": "PUPPETCA"
+  "puppetca_port": 8140
+  "puppetdb_host": "PUPPETDB"
+  "puppetdb_port": 8081
+  "middleware_hosts":
+    - "NATS"
+  "use_srv_records": false

@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  deployer:
+    image: vshn/puppet-mcoclient
+    hostname: deployer
+    environment:
+      PRIVATE_KEY: |-
+        # output of: cat .puppetlabs/etc/puppet/ssl/private_keys/$MCOLLECTIVE_CERTNAME.pem
+      CERTIFICATE: |-
+        # output of: cat .puppetlabs/etc/puppet/ssl/certs/$MCOLLECTIVE_CERTNAME.pem
+      CA_CERTIFICATE: |-
+        # output of: cat .puppetlabs/etc/puppet/ssl/certs/ca.pem
