@@ -15,7 +15,7 @@ fi
 
 if [ -n "$R10K_DEPLOY_KEY_BASE64" ]; then
   echo "---> Saving SSH deploy key to /root/.ssh/id_rsa (base64 decoded)"
-  echo -e "$R10K_DEPLOY_KEY" | base64 -d > /root/.ssh/id_rsa
+  echo -e "$R10K_DEPLOY_KEY_BASE64" | base64 -d > /root/.ssh/id_rsa
   chmod 0400 /root/.ssh/id_rsa
 fi
 
