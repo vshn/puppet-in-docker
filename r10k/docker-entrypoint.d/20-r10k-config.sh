@@ -13,6 +13,12 @@ if [ -n "$R10K_DEPLOY_KEY" ]; then
   chmod 0400 /root/.ssh/id_rsa
 fi
 
+if [ -n "$R10K_DEPLOY_KEY_BASE64" ]; then
+  echo "---> Saving SSH deploy key to /root/.ssh/id_rsa (base64 decoded)"
+  echo -e "$R10K_DEPLOY_KEY" | base64 -d > /root/.ssh/id_rsa
+  chmod 0400 /root/.ssh/id_rsa
+fi
+
 if [ -n "$MCO_R10K_POLICY" ]; then
   echo "---> Configuring custom MCollective policy for r10k"
   echo "$MCO_R10K_POLICY" > /etc/puppetlabs/mcollective/policies/r10k.policy
