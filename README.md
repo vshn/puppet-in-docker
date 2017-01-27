@@ -42,12 +42,6 @@ during startup, like replacing config variables coming from the environment vars
 Most of the scripts implement a simple "wait" logic to wait until services they
 depend on are started and accessible.
 
-For customizing the entrypoint scripts, there is an `ONBUILD COPY` configured.
-That means for customizing them create your own Dockerfile, add a directory
-`docker-entrypoint.d/*` to the same directory as the Dockerfile, put
-`FROM thisdockerimage` inside the Dockerfile and the scripts under `docker-entrypoint.d/*`,
-they will be copied automatically into the new image during the build process.
-
 ### Dockerfile
 
 In the build process, the source `Dockerfile` file is added to `/` inside the image,

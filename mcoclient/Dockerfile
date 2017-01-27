@@ -44,7 +44,6 @@ RUN apt-get update && puppet apply --hiera_config=/tmp/hiera.yaml --modulepath=/
 # Copy entrypoint into container
 COPY docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
-ONBUILD COPY /docker-entrypoint.d/* /docker-entrypoint.d/
 
 COPY Dockerfile /
 

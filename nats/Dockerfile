@@ -49,5 +49,4 @@ COPY nats.cfg /etc/nats/gnatsd.conf
 
 COPY docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
-ONBUILD COPY /docker-entrypoint.d/* /docker-entrypoint.d/
 
