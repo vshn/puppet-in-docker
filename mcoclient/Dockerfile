@@ -4,7 +4,8 @@ ENV PUPPET_AGENT_VERSION="1.8.0" \
     PUPPET_MODULE_R10K_VERSION="4.1.0" \
     DUMB_INIT_VERSION="1.2.0" \
     UBUNTU_CODENAME="xenial" \
-    PUPPET_MODULE_MCOLLECTIVE_VERSION="0.0.21" \
+    PUPPET_MODULE_CHORIA_VERSION="0.0.22" \
+    PUPPET_MODULE_R10K_VERSION="4.2.0" \
     MCO_CLIENT_USER="deployer" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
@@ -34,7 +35,7 @@ RUN apt-get update && \
     adduser --disabled-password --gecos "" $MCO_CLIENT_USER
 
 # Install and configure MCollective using Choria from R.I.Pienaar
-RUN puppet module install ripienaar-mcollective --version "$PUPPET_MODULE_MCOLLECTIVE_VERSION" --target-dir /tmp/modules && \
+RUN puppet module install choria-mcollective_choria --version "$PUPPET_MODULE_CHORIA_VERSION" --target-dir /tmp/modules && \
     puppet module install puppet-r10k --version "$PUPPET_MODULE_R10K_VERSION" --target-dir /tmp/modules
 COPY build/hiera.yaml build/common.yaml build/main.pp /tmp/
 RUN apt-get update && puppet apply --hiera_config=/tmp/hiera.yaml --modulepath=/tmp/modules /tmp/main.pp && \

@@ -4,8 +4,9 @@ ENV PUPPET_AGENT_VERSION="1.8.0" \
     R10K_VERSION="2.4.3" \
     DUMB_INIT_VERSION="1.2.0" \
     UBUNTU_CODENAME="xenial" \
-    PUPPET_MODULE_MCOLLECTIVE_VERSION="0.0.21" \
-    PUPPET_MODULE_R10K_VERSION="4.0.2" \
+    PUPPET_MODULE_CHORIA_VERSION="0.0.22" \
+    PUPPET_MODULE_R10K_VERSION="4.2.0" \
+    GWS_VERSION="0.1.8" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 LABEL org.label-schema.vendor="VSHN AG" \
@@ -27,6 +28,8 @@ RUN apt-get update && \
     apt-get install -y wget git netcat && \
     wget https://apt.puppetlabs.com/puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    wget https://github.com/StreakyCobra/gws/releases/download/"$GWS_VERSION"/gws -O /usr/local/bin/gws && \
+    chmod +x /usr/local/bin/gws && \
     dpkg -i puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     rm puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
@@ -38,7 +41,7 @@ RUN apt-get update && \
 
 # Install and configure MCollective using Choria from R.I.Pienaar
 # Install r10k
-RUN puppet module install ripienaar-mcollective --version "$PUPPET_MODULE_MCOLLECTIVE_VERSION" --target-dir /tmp/modules && \
+RUN puppet module install choria-mcollective_choria --version "$PUPPET_MODULE_CHORIA_VERSION" --target-dir /tmp/modules && \
     puppet module install puppet-r10k --version "$PUPPET_MODULE_R10K_VERSION" --target-dir /tmp/modules
 COPY build/hiera.yaml build/common.yaml build/main.pp /tmp/
 RUN apt-get update && puppet apply --hiera_config=/tmp/hiera.yaml --modulepath=/tmp/modules /tmp/main.pp && \
