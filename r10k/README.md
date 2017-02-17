@@ -25,13 +25,14 @@ command. This needs adjustment for a production installation!
 | ----                   | -----------                                                     | -------------        |
 | CA_SERVER              | Puppet CA server to request certificate                         | puppetca.local       |
 | MCO_R10K_POLICY        | Choria policy for r10k plugin                                   | policy default allow |
+| NATS                   | Hostname of NATS Server                                         | nats.local:4222      |
+| PUPPETDB               | Hostname of PuppetDB                                            | puppetdb.local       |
+| PUPPETSERVER           | Hostname of Puppetserver                                        | puppetserver.local   |
+| R10K_ADDITIONAL_CONFIG | String to append to r10k.yaml configuration file                | -                    |
 | R10K_DEPLOY_KEY        | SSH key for accessing private git repositories                  | -                    |
 | R10K_DEPLOY_KEY_BASE64 | SSH key for accessing private git repositories (Base64 encoded) | -                    |
 | R10K_REPO              | r10k control repository                                         | -                    |
 | USE_LEGACY_CA_API      | If set to true, sets CA API URLs for Puppet 3.8                 | -                    |
-| PUPPETDB               | Hostname of PuppetDB                                            | puppetdb.local       |
-| PUPPETSERVER           | Hostname of Puppetserver                                        | puppetserver.local   |
-| NATS                   | Hostname of NATS Server                                         | nats.local:4222      |
 
 ### r10k configuration
 

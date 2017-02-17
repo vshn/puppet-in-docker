@@ -26,3 +26,8 @@ else
   echo "---> Configuring default MCollective policy for r10k"
   echo "policy default allow" > /etc/puppetlabs/mcollective/policies/r10k.policy
 fi
+
+if [ -n "$R10K_ADDITIONAL_CONFIG" ]; then
+  echo "---> Additional r10k configuration"
+  echo "$R10K_ADDITIONAL_CONFIG" >> /etc/puppetlabs/r10k/r10k.yaml
+fi
