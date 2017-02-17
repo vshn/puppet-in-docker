@@ -42,6 +42,9 @@ RUN apt-get update && puppet apply --hiera_config=/tmp/hiera.yaml --modulepath=/
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R $MCO_CLIENT_USER /etc/puppetlabs/mcollective/
 
+# Add configuration file into the image
+COPY agent/git.ddl /opt/puppetlabs/mcollective/plugins/mcollective/agent/
+
 # Copy entrypoint into container
 COPY docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/

@@ -90,6 +90,56 @@ The default configuration in this image allow every user with access to MCollect
 to issue r10k commands. To customize this policy, override it in the environment
 variable `MCO_R10K_POLICY`.
 
+### MCollective Git Agent
+
+Some data may not be deployed by r10k but by plain Git. Therefore there is a simple
+MCollective Agent available for calling Git operations over MCollective. A small
+helper for a simple Git submodule is also available, called [GWS](https://streakycobra.github.io/gws/).
+
+Example usage of the MCO Git Agent:
+
+```
+mco rpc git cln repo=https://github.com/myorg/myrepo.git path=/tmp/clone
+mco rpc git run command=pull path=/tmp/clone arg='origin master'
+mco rpc git gws command=update path=/tmp/clone
+```
+
+#### Command: `cln`
+
+Basically: `git clone`
+
+| Parameter | Description                |
+| --------- | -----------                |
+| repo      | Source repository to clone |
+| path      | Path to clone to           |
+
+#### Command: `run`
+
+Basically: `git <command>`. The only allowed commands are:
+
+* pull
+* reset
+* checkout
+
+| Parameter | Description                |
+| --------- | -----------                |
+| command   | Git command to run         |
+| arg       | Argument(s) to the command |
+| path      | Path to the git repository |
+
+#### Command: `gws`
+
+Basically: `gws <command>`. The only allowed commands are:
+
+* update
+* ff
+* check
+
+| Parameter | Description               |
+| --------- | -----------               |
+| command   | GWS command to run        |
+| path      | Path to the git workspace |
+
 ## Details
 
 * Ports exposed: -
