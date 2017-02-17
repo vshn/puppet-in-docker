@@ -9,7 +9,7 @@ r10k runs can be triggered from remote.
 Installation and configuration of MCollective Choria and r10k is done using the
 Puppet modules (`puppet apply`):
 
-* [ripienaar-mcollective](https://forge.puppet.com/ripienaar/mcollective)
+* [choria-mcollective](https://forge.puppet.com/choria/mcollective)
 * [puppet-r10k](https://forge.puppet.com/puppet/r10k)
 
 Configuration is saved in `config/common.yaml` and applied during image build.

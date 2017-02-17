@@ -5,7 +5,7 @@
 ## Introduction
 
 NATS is used as messaging middleware for MCollective. The installation is using
-the [Choria Orchestrator](https://github.com/ripienaar/mcollective-choria) which by default
+the [Choria Orchestrator](http://choria.io/) which by default
 uses NATS.
 
 ## Usage

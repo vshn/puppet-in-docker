@@ -52,7 +52,7 @@ so it is alway possible to see how the image was built, even if the file got los
 Several services need a certificate from the Puppet CA. Normally the certificate is
 requested by the Puppet Agent, but it is not always available. Therefore there is
 a script used, called `request-cert.rb` which implements the request and retrieval
-process. Most of this script is extracted from [choria.rb](https://github.com/ripienaar/mcollective-choria/blob/master/lib/mcollective/util/choria.rb).
+process. Most of this script is extracted from [choria.rb](https://github.com/choria-io/mcollective-choria/blob/master/lib/mcollective/util/choria.rb).
 Thanks a lot to R.I.Pienaar!
 
 ### Helper scripts
