@@ -17,6 +17,7 @@ a compiler only.
 | CA                  | When "enabled" CA service will be enabled       | disabled       |
 | CA_SERVER           | Puppet CA server to request certificate         | puppetca.local |
 | CN                  | CN for certificate request                      | $hostname      |
+| HIERA_BASE64        | Base64 encoded Hiera configuration              | -              |
 | PUPPETDB_SERVER_URL | URL to PuppetDB                                 | -              |
 | PUPPET_ENC          | Configuration for external_nodes                | -              |
 | SKIP_CRL_DOWNLOAD   | If set to true, skips download of CRL from CA   | -              |
@@ -52,10 +53,11 @@ Apt repository (instead of `puppetdb-termini`).
 
 ### Entrypoint scripts
 
-| Name                           | Description                                                          |
-| ----                           | -----------                                                          |
-| 10-configure-ca.sh             | Configures CA behavior - if disabled requests a certificate from CA  |
-| 20-puppetdb.sh                 | Configures connection to PuppetDB if PUPPETDB_SERVER_URL is set      |
-| 30-enc.sh                      | Configures the ENC to be used                                        |
-| 40-external-tls-termination.sh | Preparation for allowing SSL termination on HAProxy                  |
-| 50-disable-legacy-auth.sh      | Sets `use-legacy-auth-conf: false`                                   |
+| Name                           | Description                                                         |
+| ----                           | -----------                                                         |
+| 10-configure-ca.sh             | Configures CA behavior - if disabled requests a certificate from CA |
+| 20-puppetdb.sh                 | Configures connection to PuppetDB if PUPPETDB_SERVER_URL is set     |
+| 30-enc.sh                      | Configures the ENC to be used                                       |
+| 31-hiera.sh                    | Configures Hiera                                                    |
+| 40-external-tls-termination.sh | Preparation for allowing SSL termination on HAProxy                 |
+| 50-disable-legacy-auth.sh      | Sets `use-legacy-auth-conf: false`                                  |
