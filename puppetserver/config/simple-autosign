@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# See https://tickets.puppetlabs.com/browse/SERVER-1116
+cert=$(cat)
+
 if [ -f "/etc/puppetlabs/code/encdata/$1.yaml" ]; then
   exit 0;
 else
