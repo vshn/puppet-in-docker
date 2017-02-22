@@ -49,7 +49,10 @@ COPY config/logback.xml /etc/puppetlabs/puppetserver/
 COPY config/request-logging.xml /etc/puppetlabs/puppetserver/
 COPY config/puppetdb.conf /etc/puppetlabs/puppet/
 COPY config/hiera.yaml /etc/puppetlabs/puppet/hiera.yaml
+
+# Add scripts to get started easily
 COPY config/simple-enc /etc/puppetlabs/puppet/simple-enc
+COPY config/simple-autosign /etc/puppetlabs/puppet/simple-autosign
 COPY request-cert.rb /usr/local/bin
 
 # Copy entrypoint into container
