@@ -33,9 +33,12 @@ frontend puppet-frontend
   http-request set-header X-Client-DN CN=%{+Q}[ssl_c_s_dn(cn)]
   http-request set-header X-SSL-Subject CN=%{+Q}[ssl_c_s_dn(cn)]
   http-request set-header X-Client-Cert "-----BEGIN CERTIFICATE-----%%0A%[ssl_c_der,base64]%%0A-----END CERTIFICATE----- #" if { ssl_c_used }
-  acl ca path -m sub certificate
+  # /puppet-ca/v1/:indirection/:key?environment=:environment
+  acl ca_current path -m beg /puppet-ca
+  # /:environment/certificate/:nodename
+  acl ca_legacy path -m reg ^/.*/certificate/.*$
   default_backend puppet-backend
-  use_backend puppet-ca-backend if ca
+  use_backend puppet-ca-backend if ca_current or ca_legacy
 
 frontend puppetdb-frontend
   bind *:8081 ssl crt /usr/local/etc/haproxy/ssl/haproxy.pem ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem verify optional crl-file /usr/local/etc/haproxy/ssl/crl.pem
