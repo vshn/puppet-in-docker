@@ -25,8 +25,9 @@ CMD ["puppetserver"]
 COPY Dockerfile.legacy /Dockerfile
 
 # TODO checksum check
-RUN locale-gen en_US.UTF-8 && apt-get update && \
-    apt-get install -y wget git netcat vim && \
+RUN apt-get update && \
+    apt-get install -y wget git netcat vim locales && \
+    locale-gen en_US.UTF-8 && \
     wget https://apt.puppetlabs.com/puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb && \
