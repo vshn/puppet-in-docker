@@ -1,11 +1,11 @@
 FROM ubuntu:16.04
 
-ENV PUPPET_AGENT_VERSION="1.8.0" \
-    R10K_VERSION="2.4.3" \
+ENV PUPPET_AGENT_VERSION="1.10.1" \
+    R10K_VERSION="2.5.4" \
     DUMB_INIT_VERSION="1.2.0" \
     UBUNTU_CODENAME="xenial" \
-    PUPPET_MODULE_CHORIA_VERSION="0.0.22" \
-    PUPPET_MODULE_R10K_VERSION="4.2.0" \
+    PUPPET_MODULE_CHORIA_VERSION="0.0.26" \
+    PUPPET_MODULE_R10K_VERSION="6.0.0" \
     GWS_VERSION="0.1.8" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 

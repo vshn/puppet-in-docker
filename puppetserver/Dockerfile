@@ -4,7 +4,7 @@ ENV PUPPET_SERVER_VERSION="2.7.2" \
     DUMB_INIT_VERSION="1.2.0" \
     UBUNTU_CODENAME="xenial" \
     PUPPETSERVER_JAVA_ARGS="-Xms256m -Xmx256m" \
-    PUPPETDB_TERMINI_VERSION="4.3.0" \
+    PUPPETDB_TERMINI_VERSION="4.4.0" \
     LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US.UTF-8 \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 

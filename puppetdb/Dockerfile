@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-ENV PUPPETDB_VERSION="4.3.0" \
+ENV PUPPETDB_VERSION="4.4.0" \
     DUMB_INIT_VERSION="1.2.0" \
     UBUNTU_CODENAME="xenial" \
     PUPPETDB_USER=puppetdb \
