@@ -36,7 +36,7 @@ frontend puppet-frontend
   # /puppet-ca/v1/:indirection/:key?environment=:environment
   acl ca_current path -m beg /puppet-ca
   # /:environment/certificate/:nodename
-  acl ca_legacy path -m reg ^/.*/(certificate|certificate_request)/.*$
+  acl ca_legacy path -m reg ^/[^/]+/certificate(|_status|_request|_revocation_list)/
   default_backend puppet-backend
   use_backend puppet-ca-backend if ca_current or ca_legacy
 
