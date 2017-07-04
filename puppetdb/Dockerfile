@@ -26,7 +26,7 @@ COPY Dockerfile /
 
 # TODO checksum check
 RUN apt-get update && \
-    apt-get install -y wget netcat curl vim && \
+    apt-get install -y wget netcat curl vim ruby && \
     wget https://apt.puppetlabs.com/puppet5-release-"$UBUNTU_CODENAME".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     dpkg -i puppet5-release-"$UBUNTU_CODENAME".deb && \

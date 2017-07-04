@@ -1,10 +1,10 @@
 FROM ubuntu:16.04
 
-ENV PUPPET_AGENT_VERSION="1.10.1" \
+ENV PUPPET_AGENT_VERSION="5.0.0" \
     DUMB_INIT_VERSION="1.2.0" \
     UBUNTU_CODENAME="xenial" \
-    PUPPET_MODULE_CHORIA_VERSION="0.0.26" \
-    PUPPET_MODULE_R10K_VERSION="6.0.0" \
+    PUPPET_MODULE_CHORIA_VERSION="0.0.27" \
+    PUPPET_MODULE_R10K_VERSION="6.1.0" \
     MCO_CLIENT_USER="deployer" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
@@ -22,11 +22,11 @@ ENTRYPOINT ["dumb-init", "/docker-entrypoint.sh"]
 # TODO checksum check
 RUN apt-get update && \
     apt-get install -y wget git netcat && \
-    wget https://apt.puppetlabs.com/puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
+    wget https://apt.puppetlabs.com/puppet5-release-"$UBUNTU_CODENAME".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    dpkg -i puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
+    dpkg -i puppet5-release-"$UBUNTU_CODENAME".deb && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    rm puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    rm puppet5-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
     apt-get install --no-install-recommends -y puppet-agent="$PUPPET_AGENT_VERSION"-1"$UBUNTU_CODENAME" && \
     apt-get clean && \
