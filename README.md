@@ -1,4 +1,4 @@
-# Puppet 4 Infrastructure - Running in Docker
+# Puppet 5 Infrastructure - Running in Docker
 
 **WARNING: These Dockerfiles are brand new - there is no field testing made yet.**
 **This will be done over the following weeks. Then we'll also do a first release.**

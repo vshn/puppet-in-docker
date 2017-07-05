@@ -1,5 +1,5 @@
-FROM postgres:9.5
-MAINTAINER Gareth Rushgrove "gareth@puppet.com"
+FROM postgres:9.6
+MAINTAINER Tobias Brunner <tobias.brunner@vshn.ch>
 
 LABEL org.label-schema.vendor="Puppet" \
       org.label-schema.url="https://github.com/vshn/puppet-in-docker" \

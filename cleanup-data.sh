@@ -1,5 +1,5 @@
 #!/bin/bash
-VOLUME_PREFIX=${VOLUME_PREFIX:-docker}
+VOLUME_PREFIX=${VOLUME_PREFIX:-puppetindocker}
 volumes="
 ${VOLUME_PREFIX}_ca_data
 ${VOLUME_PREFIX}_ca_ssl

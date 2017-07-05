@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-ENV PUPPETDB_VERSION="4.4.0" \
+ENV PUPPETDB_VERSION="5.0.1" \
     DUMB_INIT_VERSION="1.2.0" \
     UBUNTU_CODENAME="xenial" \
     PUPPETDB_USER=puppetdb \
@@ -26,12 +26,12 @@ COPY Dockerfile /
 
 # TODO checksum check
 RUN apt-get update && \
-    apt-get install -y wget netcat curl vim && \
-    wget https://apt.puppetlabs.com/puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
+    apt-get install -y wget netcat curl vim ruby && \
+    wget https://apt.puppetlabs.com/puppet5-release-"$UBUNTU_CODENAME".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    dpkg -i puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb && \
+    dpkg -i puppet5-release-"$UBUNTU_CODENAME".deb && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    rm puppetlabs-release-pc1-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    rm puppet5-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
     apt-get install --no-install-recommends -y puppetdb="$PUPPETDB_VERSION"-1puppetlabs1 && \
     apt-get clean && \
