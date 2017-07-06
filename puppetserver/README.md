@@ -24,6 +24,19 @@ a compiler only.
 | USE_LEGACY_CA_API   | If set to true, sets CA API URLs for Puppet 3.8 | -              |
 | USE_LEGACY_PUPPETDB | If set to true, uses PuppetDB 2.3 URL           | -              |
 
+**Support for arbitrary configuration in puppet.conf**:
+
+Use environment variables starting with `PUPPETCONF_` to add configuration values to `puppet.conf`.
+They are in this format: `PUPPETCONF_<SECTION>_<KEY>=<VALUE>`.
+
+Example:
+
+```
+PUPPETCONF_MASTER_ENVIRONMENT_TIMEOUT=unlimited
+```
+
+This will add `enviroment_timeout = unlimited` to `puppet.conf` in the section `[master]`.
+
 ### Puppetserver configuration
 
 Default configuration files are saved under `config/` and are copied into the image
