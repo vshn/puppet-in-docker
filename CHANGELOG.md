@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 1.2.0 - 2018-01-04
 ### Added
 - Updated all components to Puppet 5
 - Environment variable to configure number of JRuby instances of puppetserver
