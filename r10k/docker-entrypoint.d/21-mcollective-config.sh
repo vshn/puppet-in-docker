@@ -11,7 +11,7 @@ if [ -f /etc/puppetlabs/mcollective/plugin.d/choria.cfg ]; then
   sed -i "s|PUPPETSERVER|$PUPPETSERVER|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
   sed -i "s|PUPPETCA|$CA_SERVER|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
   sed -i "s|PUPPETDB|$PUPPETDB|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
-  sed -i "s|NATS|$NATS|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
+  sed -i "s|\[\"NATS\"\]|$NATS|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
 else
   echo "---> MCollective Choria plugin configuration file not found"
 fi
