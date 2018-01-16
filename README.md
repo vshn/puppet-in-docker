@@ -58,8 +58,8 @@ Thanks a lot to R.I.Pienaar!
 ### Helper scripts
 
 * To cleanup data, the script `cleanup-data.sh` can be used:
- * `cleanup-data.sh data`: removes data inside the volumes
- * `cleanup-data.sh volumes`: removes all docker volumes
+  * `cleanup-data.sh data`: removes data inside the volumes
+  * `cleanup-data.sh volumes`: removes all docker volumes
 
 ## Puppet 3.x migration helper
 
