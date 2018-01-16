@@ -27,6 +27,17 @@ and all components together use a lot of resources.
 All components can be run by themselves. Documentation about each component can be
 found in their respective directory.
 
+### Docker Compose
+
+There are Docker Compose configuration files available to conveniently start a
+full environment locally:
+
+* `docker-compose.yaml`: Builds all images locally and starts the whole stack.
+* `docker-compose-images.yaml`: Uses the automatically built images from the
+  `vshn` namespace on Docker Hub
+* `docker-compose-legacy.yaml`: Configures the whole stack to support Puppet 3
+  backends (master and old PuppetDB).
+
 ## Internals
 
 ### Docker Entrypoint
