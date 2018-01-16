@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This repository contains Dockerfiles for a complete Puppet 4 infrastructure
+This repository contains Dockerfiles for a complete Puppet 5 infrastructure
 running in Docker. The following components are used:
 
 * [**HAProxy**](http://www.haproxy.org/): Reverse proxy for splitting traffic between CA and catalog
