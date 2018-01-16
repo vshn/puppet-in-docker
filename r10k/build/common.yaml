@@ -4,7 +4,7 @@ mcollective::common_config:
 mcollective::client: true
 mcollective::service_enable: false
 mcollective::service_ensure: stopped
-mcollective::facts_refresh_interval: 0
+mcollective::facts_refresh_interval: 10
 mcollective::policy_default: allow
 mcollective::purge: true
 
