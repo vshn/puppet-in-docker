@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
-ENV PUPPETDB_VERSION="5.0.1" \
-    DUMB_INIT_VERSION="1.2.0" \
+ENV PUPPETDB_VERSION="5.1.3" \
+    DUMB_INIT_VERSION="1.2.1" \
     UBUNTU_CODENAME="xenial" \
     PUPPETDB_USER=puppetdb \
     PUPPETDB_PASSWORD=puppetdb \
@@ -33,7 +33,7 @@ RUN apt-get update && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     rm puppet5-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
-    apt-get install --no-install-recommends -y puppetdb="$PUPPETDB_VERSION"-1puppetlabs1 && \
+    apt-get install --no-install-recommends -y puppetdb="$PUPPETDB_VERSION"-1"$UBUNTU_CODENAME" && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/lib/puppet/ssl && \

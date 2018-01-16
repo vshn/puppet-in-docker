@@ -1,11 +1,11 @@
 FROM ubuntu:16.04
 
-ENV PUPPET_SERVER_VERSION="5.0.0" \
-    DUMB_INIT_VERSION="1.2.0" \
+ENV PUPPET_SERVER_VERSION="5.1.4" \
+    DUMB_INIT_VERSION="1.2.1" \
     UBUNTU_CODENAME="xenial" \
     PUPPETSERVER_JAVA_ARGS="-Xms256m -Xmx256m" \
     PUPPETSERVER_JRUBYINSTANCES=2 \
-    PUPPETDB_TERMINI_VERSION="5.0.1" \
+    PUPPETDB_TERMINI_VERSION="5.1.3" \
     LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US.UTF-8 \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
@@ -35,7 +35,7 @@ RUN apt-get update && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     rm puppet5-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
-    apt-get install --no-install-recommends -y puppetserver="$PUPPET_SERVER_VERSION"-1puppetlabs1 puppetdb-termini="$PUPPETDB_TERMINI_VERSION"-1puppetlabs1 && \
+    apt-get install --no-install-recommends -y puppetserver="$PUPPET_SERVER_VERSION"-1"$UBUNTU_CODENAME" puppetdb-termini="$PUPPETDB_TERMINI_VERSION"-1"$UBUNTU_CODENAME" && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     find \

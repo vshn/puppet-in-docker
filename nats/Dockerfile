@@ -1,6 +1,6 @@
 FROM alpine:3.4
 
-ENV DUMB_INIT_VERSION="1.2.0" \
+ENV DUMB_INIT_VERSION="1.2.1" \
     NATS_VERSION="0.9.6"
 
 LABEL org.label-schema.vendor="VSHN AG" \

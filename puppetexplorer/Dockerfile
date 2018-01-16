@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 ENV PUPPET_EXPLORER_VERSION="2.0.0" \
-    DUMB_INIT_VERSION="1.2.0"
+    DUMB_INIT_VERSION="1.2.1"
 
 LABEL org.label-schema.vendor="VSHN AG" \
       org.label-schema.url="https://github.com/vshn/puppet-in-docker" \

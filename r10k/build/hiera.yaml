@@ -1,7 +1,7 @@
----
-:backends:
-  - yaml
-:hierarchy:
-  - "common"
-:yaml:
-  :datadir: "/tmp"
+version: 5
+hierarchy:
+  - name: Common
+    path: common.yaml
+defaults:
+  data_hash: yaml_data
+  datadir: "/tmp"

@@ -1,6 +1,6 @@
 FROM haproxy:1.7-alpine
 
-ENV DUMB_INIT_VERSION="1.2.0" \
+ENV DUMB_INIT_VERSION="1.2.1" \
     CONFD_VERSION="0.12.0-alpha3"
 
 LABEL org.label-schema.vendor="VSHN AG" \
