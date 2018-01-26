@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Make PuppetDB node-ttl configurable
+- Add Dockerfile for Puppet4 with PuppetDB5
 
 ## 1.2.0 - 2018-01-04
 ### Added
