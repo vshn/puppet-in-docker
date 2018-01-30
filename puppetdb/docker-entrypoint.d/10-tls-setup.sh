@@ -15,7 +15,7 @@ fi
 # Request certificate if not already available
 if [ ! -f ${CERTFILE} ]; then
   # Wait for CA API to be available
-  while ! curl -k -s -f https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca > /dev/null; do
+  while ! curl -k -s -f ${CA_API_URL} > /dev/null; do
     echo "---> Waiting for CA API at ${CA_SERVER}..."
     sleep 10
   done
