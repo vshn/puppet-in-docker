@@ -12,6 +12,9 @@ else
   CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
 fi
 
+echo "---> Ensure correct permissions on puppet ssl certificates"
+chown -R puppetdb:root /etc/puppetlabs/puppet/ssl
+
 # Request certificate if not already available
 if [ ! -f ${CERTFILE} ]; then
   # Wait for CA API to be available
@@ -21,11 +24,6 @@ if [ ! -f ${CERTFILE} ]; then
   done
 
   echo "---> Requesting certificate for ${CN} from ${CA_SERVER}"
-  # TODO investigate why the permissions are wrong
-  # -> should be set correctly in Dockerfile
-  # -> maybe gets overwriten because of volume mount
-  # -> but in Puppetserver it works
-  chown -R puppetdb /etc/puppetlabs
   su -s /bin/sh puppetdb -c "/usr/bin/ruby \
     /usr/local/bin/request-cert.rb \
     --caserver ${CA_SERVER} \
