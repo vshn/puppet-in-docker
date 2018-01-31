@@ -35,13 +35,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install --no-install-recommends -y puppetdb="$PUPPETDB_VERSION"-1"$UBUNTU_CODENAME" && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /var/lib/puppet/ssl && \
-    find \
-      /etc/puppetlabs \
-      -exec chgrp -R root {} + \
-      -exec chown -R puppetdb {} + \
-      -exec chmod -R g=rwX,g-s {} +
+    rm -rf /var/lib/apt/lists/*
 
 # Add configuration files into the image
 COPY puppetdb /etc/default/
