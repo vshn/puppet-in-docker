@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Removed deprecated PuppetDB settings
 
+### Added
+- Make PuppetDB node-ttl configurable
+
 ## 1.2.0 - 2018-01-04
 ### Added
 - Updated all components to Puppet 5
