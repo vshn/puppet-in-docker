@@ -2,11 +2,7 @@
 
 CN=$(hostname)
 
-if [ "${USE_LEGACY_PUPPETDB}" == "true" ]; then
-  PUPPETDB_URL=https://${PUPPETDB_SERVER_URL}/v3/version
-else
-  PUPPETDB_URL=https://${PUPPETDB_SERVER_URL}/status/v1/services/puppetdb-status
-fi
+PUPPETDB_URL=https://${PUPPETDB_SERVER_URL}/status/v1/services/puppetdb-status
 
 if [ -n "$PUPPETDB_SERVER_URL" ]; then
   # Wait for PuppetDB API to be available

@@ -23,7 +23,6 @@ a compiler only.
 | PUPPET_ENC                  | Configuration for external_nodes                | -              |
 | SKIP_CRL_DOWNLOAD           | If set to true, skips download of CRL from CA   | -              |
 | USE_LEGACY_CA_API           | If set to true, sets CA API URLs for Puppet 3.8 | -              |
-| USE_LEGACY_PUPPETDB         | If set to true, uses PuppetDB 2.3 URL           | -              |
 
 **Support for arbitrary configuration in puppet.conf**:
 
@@ -53,11 +52,12 @@ COPY hiera.yaml /etc/puppetlabs/puppet/hiera.yaml
 Other scripts, f.e. a custom ENC provider should also be copied into the image
 using this way.
 
-### Support for PuppetDB 2.3.x
+### Puppet4
 
-To support migration scenarios there is a special Dockerfile available, suitably
-called `Dockerfile.legacy`. It installs `puppetdb-terminus` from the old Puppetlabs
-Apt repository (instead of `puppetdb-termini`).
+The main build is for Puppet 5 with PuppetDB 5. If you need Puppet 4 with PuppetDB 5 support, use the `Dockerfile.puppet4` which uses
+puppetdb-termini version 4.4.x
+
+Support for older PuppetDB versions and support for Puppet 3.8 has been removed.  
 
 ## Details
 
