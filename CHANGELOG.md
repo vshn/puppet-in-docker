@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Added
+- Make CA CN and TTL configurable
 
 ## v2.0.0 - 2018-02-05
 ### Changed

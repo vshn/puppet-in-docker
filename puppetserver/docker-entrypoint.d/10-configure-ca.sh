@@ -2,6 +2,7 @@
 
 CN=$(hostname)
 CA_SERVER=${CA_SERVER:-puppetca.local}
+CA_TTL=${CA_TTL:-5y}
 AUTOSIGN=${AUTOSIGN:-true}
 
 if [ "${USE_LEGACY_CA_API}" == "true" ]; then
@@ -64,4 +65,10 @@ else
   echo "---> Puppetserver acting as CA"
   echo "---> Configuring autosigning: ${AUTOSIGN}"
   puppet config set autosign $AUTOSIGN --section master
+  if [ -n "${CA_NAME}" ]; then
+    echo "---> Configuring CA Cert CN: ${CA_NAME}"
+    puppet config set ca_name "$CA_NAME" --section master
+  fi
+  echo "---> Configuring CA Expire / TTL to now +${CA_TTL}"
+  puppet config set ca_ttl "$CA_TTL" --section master
 fi

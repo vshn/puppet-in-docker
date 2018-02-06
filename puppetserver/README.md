@@ -23,6 +23,9 @@ a compiler only.
 | PUPPET_ENC                  | Configuration for external_nodes                | -              |
 | SKIP_CRL_DOWNLOAD           | If set to true, skips download of CRL from CA   | -              |
 | USE_LEGACY_CA_API           | If set to true, sets CA API URLs for Puppet 3.8 | -              |
+| CA_NAME                     | The CN of the generated Puppet CA certificate   | -              |
+| CA_TTL                      | Expire TTL of newly created certs by the CA     | 5y             |
+
 
 **Support for arbitrary configuration in puppet.conf**:
 
