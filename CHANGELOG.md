@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v2.2.0
+### Fixed
+- Incompatible versions of mcoclient and r10k choria plugin
+
+### Added
+- r10k cli rpc agent for mco
+
 ## v2.1.0
 ### Added
 - Make CA CN and TTL configurable
