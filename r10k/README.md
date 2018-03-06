@@ -105,6 +105,17 @@ mco rpc git run command=pull path=/tmp/clone arg='origin master'
 mco rpc git gws command=update path=/tmp/clone
 ```
 
+### MCollective r10k cli Agent
+As the choria r10k lacks some functionality like logging / debugging, etc. we also added a MCO agent to execute r10k directly.
+By default the argument `-v INFO` is appended to have some more output.
+```
+mco rpc r10kcli deploy_module module=<module> args='-v DEBUG'
+```
+or for an environment
+```
+mco rpc r10kcli deploy environment=<environment>
+```
+
 #### Command: `cln`
 
 Basically: `git clone`

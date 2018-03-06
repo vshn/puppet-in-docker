@@ -56,8 +56,8 @@ RUN mkdir /root/.ssh \
 COPY r10k.yaml /etc/puppetlabs/r10k/r10k.yaml
 COPY request-cert.rb /usr/local/bin
 COPY agent/git.ddl agent/git.rb /opt/puppetlabs/mcollective/plugins/mcollective/agent/
+COPY agent/r10kcli.ddl agent/r10kcli.rb /opt/puppetlabs/mcollective/plugins/mcollective/agent/
 
 # Copy entrypoint into container
 COPY docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
-
