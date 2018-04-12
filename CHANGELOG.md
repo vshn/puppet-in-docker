@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v2.3.0
+### Added
+- Implement certificate-whitelist for PuppetDB
+
 ## v2.2.0
 ### Fixed
 - Incompatible versions of mcoclient and r10k choria plugin
