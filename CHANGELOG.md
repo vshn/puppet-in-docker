@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+## v2.3.1
+### Fixed
+- Fix gettext-setup issue, puppetlabs/SERVER-1912
 
 ## v2.3.0
 ### Added
