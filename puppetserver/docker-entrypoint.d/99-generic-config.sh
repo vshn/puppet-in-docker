@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 readonly config_re='^PUPPETCONF_([^_]+)_(.+)$'
 

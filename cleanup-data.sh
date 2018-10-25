@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 VOLUME_PREFIX=${VOLUME_PREFIX:-puppetindocker}
 volumes="
 ${VOLUME_PREFIX}_ca_data

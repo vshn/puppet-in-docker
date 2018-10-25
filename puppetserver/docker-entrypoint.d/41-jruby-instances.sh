@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "---> Configuring JRUBY instances of Puppetserver"
 sed -i -E \

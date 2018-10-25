@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Disable jruby-puppet.use-legacy-auth-conf
 # Suppresses the log message:

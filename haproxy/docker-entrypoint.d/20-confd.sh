@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export STATS_CRED=${STATS_CRED:-"admin:password"}
 export PUPPETCA_BACKEND=${PUPPETCA_BACKEND:-puppetca.local}

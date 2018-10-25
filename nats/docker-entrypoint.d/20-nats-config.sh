@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CN=$(hostname)
 CERTFILE="/etc/nats/ssl/certs/${CN}.pem"

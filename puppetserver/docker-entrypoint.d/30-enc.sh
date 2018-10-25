@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -n "$PUPPET_ENC" ]; then
   echo "---> Configuring Puppetserver to use ENC ${PUPPET_ENC}"

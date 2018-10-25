@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PUPPETDB_SERVER=${PUPPETDB_SERVER:-puppetdb.local}
 
