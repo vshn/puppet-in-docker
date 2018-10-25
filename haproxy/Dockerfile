@@ -26,8 +26,12 @@ RUN apk add --no-cache \
       ca-certificates \
       wget \
       openssl \
+      openssl-dev \
+      ruby-dev \
+      alpine-sdk \
       netcat-openbsd \
       bash && \
+      gem install --no-rdoc --no-ri openssl && \
       update-ca-certificates && \
       wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64 && \
       wget -O /usr/local/bin/confd https://github.com/kelseyhightower/confd/releases/download/v"$CONFD_VERSION"/confd-"$CONFD_VERSION"-linux-amd64 && \
@@ -45,4 +49,3 @@ COPY haproxy.toml /etc/confd/conf.d
 # Copy entrypoint into container
 COPY docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
-
