@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "---> Configuring PuppetDB whitelist"
 if [ "$PUPPETDB_WHITELIST" ]; then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CN=$(hostname)
 CA_SERVER=${CA_SERVER:-puppetca.local}

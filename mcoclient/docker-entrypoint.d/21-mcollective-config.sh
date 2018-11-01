@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CA_SERVER=${CA_SERVER:-puppetca.local}
 MCOLLECTIVE_CERTNAME=${MCOLLECTIVE_CERTNAME:-deployer.mcollective}

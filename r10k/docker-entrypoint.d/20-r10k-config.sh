@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -n "$R10K_REPO" ]; then
   echo "---> Configuring r10k repository: $R10K_REPO"
