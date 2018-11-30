@@ -1,12 +1,13 @@
 FROM ubuntu:16.04
 
-ENV PUPPETDB_VERSION="5.1.3" \
+ENV PUPPETDB_VERSION="5.1.5" \
     DUMB_INIT_VERSION="1.2.1" \
     UBUNTU_CODENAME="xenial" \
     PUPPETDB_USER=puppetdb \
     PUPPETDB_PASSWORD=puppetdb \
     PUPPETDB_JAVA_ARGS="-Djava.net.preferIPv4Stack=true -Xms256m -Xmx256m" \
     PUPPETDB_NODETTL="30d" \
+    PUPPETDB_MAXPOOLSIZE=25 \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 LABEL org.label-schema.vendor="VSHN AG" \

@@ -11,14 +11,15 @@ to be run in Docker.
 
 ### Environment variables
 
-| Name               | Description                                     | Default value  |
-| ----               | -----------------------------------------       | -------------  |
-| CA_SERVER          | Puppet CA server to request certificate         | puppetca.local |
-| POSTGRES_PASSWORD  | Password for Postgres user                      | -              |
-| POSTGRES_USER      | Username for Postgres connection                | -              |
-| USE_LEGACY_CA_API  | If set to true, sets CA API URLs for Puppet 3.8 | -              |
-| PUPPETDB_NODETTL   | PuppetDB node-ttl (default was 7d)              | 30d            |
-| PUPPETDB_WHITELIST | Set to `true` to enable puppetdb whitelist      | - (false)      |
+| Name                 | Description                                     | Default value  |
+| ----                 | -----------------------------------------       | -------------  |
+| CA_SERVER            | Puppet CA server to request certificate         | puppetca.local |
+| POSTGRES_PASSWORD    | Password for Postgres user                      | -              |
+| POSTGRES_USER        | Username for Postgres connection                | -              |
+| USE_LEGACY_CA_API    | If set to true, sets CA API URLs for Puppet 3.8 | -              |
+| PUPPETDB_NODETTL     | PuppetDB node-ttl (default was 7d)              | 30d            |
+| PUPPETDB_WHITELIST   | Set to `true` to enable puppetdb whitelist      | - (false)      |
+| PUPPETDB_MAXPOOLSIZE | maximum-pool-size database setting              | 25             |
 
 ### PuppetDB Certificate Whitelist
 By default any valid certificate from the CA can query anything that's in the PuppetDB.

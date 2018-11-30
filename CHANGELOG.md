@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+## v2.4.0
+### Added
+- manage maximum-pool-size setting, default value 25
+
+### Changed
+- Update PuppetDB from 5.1.3 to 5.1.5
+
 ## v2.3.1
 ### Fixed
 - Fix gettext-setup issue, puppetlabs/SERVER-1912
