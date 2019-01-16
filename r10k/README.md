@@ -32,7 +32,6 @@ command. This needs adjustment for a production installation!
 | R10K_DEPLOY_KEY        | SSH key for accessing private git repositories                  | -                    |
 | R10K_DEPLOY_KEY_BASE64 | SSH key for accessing private git repositories (Base64 encoded) | -                    |
 | R10K_REPO              | r10k control repository                                         | -                    |
-| USE_LEGACY_CA_API      | If set to true, sets CA API URLs for Puppet 3.8                 | -                    |
 
 ### r10k configuration
 
