@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Removed
+- Support for lagacy PuppetDB API
+
 ## v2.4.0
 ### Added
 - manage maximum-pool-size setting, default value 25
