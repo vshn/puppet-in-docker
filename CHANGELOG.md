@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 - Support for lagacy PuppetDB API
+- Puppet 4 Server Dockerfile
 
 ## v2.4.0
 ### Added
