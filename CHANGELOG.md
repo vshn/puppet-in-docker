@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Changed
+- puppetserver and puppetdb Dockerfile can now build other versions via build-args
+
 ### Removed
 - Support for lagacy PuppetDB API
 

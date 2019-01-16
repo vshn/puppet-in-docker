@@ -1,11 +1,13 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ENV PUPPET_SERVER_VERSION="5.1.4" \
-    DUMB_INIT_VERSION="1.2.1" \
-    UBUNTU_CODENAME="xenial" \
+# docker build -t vshn/puppet-puppetserver:6.0 --build-arg "PUPPET_SERVER_VERSION=6.0.3" --build-arg "PUPPETDB_TERMINI_VERSION=6.0.2" .
+ARG PUPPET_SERVER_VERSION="5.3.7"
+ARG PUPPETDB_TERMINI_VERSION="5.2.4"
+
+ENV DUMB_INIT_VERSION="1.2.2" \
+    UBUNTU_CODENAME="bionic" \
     PUPPETSERVER_JAVA_ARGS="-Xms256m -Xmx256m" \
     PUPPETSERVER_JRUBYINSTANCES=2 \
-    PUPPETDB_TERMINI_VERSION="5.1.3" \
     LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US.UTF-8 \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
@@ -28,12 +30,13 @@ COPY Dockerfile /
 # TODO checksum check
 RUN apt-get update && \
     apt-get install -y wget git netcat vim locales && \
-    locale-gen en_US.UTF-8 && \
-    wget https://apt.puppetlabs.com/puppet5-release-"$UBUNTU_CODENAME".deb && \
+    locale-gen en_US.UTF-8
+RUN major_version=$(echo "${PUPPET_SERVER_VERSION}" | cut -d. -f1) && \
+    wget https://apt.puppetlabs.com/puppet"$major_version"-release-"$UBUNTU_CODENAME".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    dpkg -i puppet5-release-"$UBUNTU_CODENAME".deb && \
+    dpkg -i puppet"$major_version"-release-"$UBUNTU_CODENAME".deb && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    rm puppet5-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    rm puppet"$major_version"-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
     apt-get install --no-install-recommends -y puppetserver="$PUPPET_SERVER_VERSION"-1"$UBUNTU_CODENAME" puppetdb-termini="$PUPPETDB_TERMINI_VERSION"-1"$UBUNTU_CODENAME" && \
     apt-get clean && \
