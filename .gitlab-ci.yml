@@ -12,6 +12,7 @@ before_script:
   stage: build
   tags: [ dockerbuild ]
 
+# Puppetserver
 .puppetserver:
   extends: .dockerbuild
   script:
@@ -37,4 +38,29 @@ puppetserver_61:
   variables:
     PUPPET_SERVER_VERSION: '6.1.0'
     PUPPETDB_TERMINI_VERSION: '6.1.0'
+    TAG: '6.1'
+
+# PuppetDb
+.puppetdb:
+  extends: .dockerbuild
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME --build-arg "PUPPETDB_VERSION=$PUPPETDB_VERSION" puppetdb
+    - docker push $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME
+
+puppetdb_52:
+  extends: .puppetserver
+  variables:
+    PUPPETDB_VERSION: '5.2.7'
+    TAG: '5.2'
+
+puppetdb_60:
+  extends: .puppetserver
+  variables:
+    PUPPETDB_VERSION: '6.0.2'
+    TAG: '6.0'
+
+puppetdb_61:
+  extends: .puppetserver
+  variables:
+    PUPPETDB_VERSION: '6.1.0'
     TAG: '6.1'
