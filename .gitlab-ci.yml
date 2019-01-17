@@ -57,28 +57,35 @@ puppetserver_61_master:
   only:
     - master
 
-# # PuppetDB
-# .puppetdb:
-#   extends: .dockerbuild
-#   script:
-#     - docker build -t docker.io/vshn/puppet-puppetdb:${TAG} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
-#     - docker push docker.io/vshn/puppet-puppetdb:${TAG}
+# PuppetDB
+.puppetdb:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-puppetdb:${TAG} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
+    - docker push ${REGISTRY_PATH}/puppet-puppetdb:${TAG}
 
-# puppetdb_52:
-#   variables:
-#     PUPPETDB_VERSION: '5.2.7'
-#     TAG: '5.2'
-#   extends: .puppetdb
+puppetdb_52:
+  variables:
+    PUPPETDB_VERSION: '5.2.7'
+    TAG: '5.2-${CI_COMMIT_REF_NAME}'
+  extends: .puppetdb
+  only: [ devel ]
 
-# # puppetdb_60:
-# #   extends: .puppetdb
-# #   variables:
-# #     PUPPETDB_VERSION: '6.0.2'
-# #     TAG: '6.0'
+puppetdb_52_master:
+  variables:
+    TAG: '5.2'
+  extends: puppetdb_52
+  only: [ master ]
 
-# puppetdb_61:
-#   variables:
-#     PUPPETDB_VERSION: '6.1.0'
-#     TAG: '6.1'
-#   extends: .puppetdb
+puppetdb_61:
+  variables:
+    PUPPETDB_VERSION: '6.1.0'
+    TAG: '6.1-${CI_COMMIT_REF_NAME}'
+  extends: .puppetdb
+  only: [ devel ]
 
+puppetdb_61_master:
+  variables:
+    TAG: '6.1'
+  extends: puppetdb_61
+  only: [ master ]
