@@ -2,6 +2,9 @@ image: docker:latest
 services:
   - docker:dind
 
+variables:
+  REGISTRY_PATH: docker.io/vshn
+
 stages:
   - build
 
@@ -17,17 +20,25 @@ before_script:
 .puppetserver:
   extends: .dockerbuild
   script:
-    - docker build -t docker.io/vshn/puppet-puppetserver:${TAG}-${CI_COMMIT_REF_NAME} 
+    - docker build -t ${REGISTRY_PATH}/puppet-puppetserver:${TAG}
         --build-arg "PUPPET_SERVER_VERSION=${PUPPET_SERVER_VERSION}"
         --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}" puppetserver
-    - docker push docker.io/vshn/puppet-puppetserver:${TAG}-${CI_COMMIT_REF_NAME}
+    - docker push ${REGISTRY_PATH}puppet-puppetserver:${TAG}
 
 puppetserver_53:
   variables:
     PUPPET_SERVER_VERSION: '5.3.7'
     PUPPETDB_TERMINI_VERSION: '5.2.7'
-    TAG: '5.3'
+    TAG: "5.3-${CI_COMMIT_REF_NAME}"
   extends: .puppetserver
+  only:
+    - devel
+puppetserver_53_master:
+  variables:
+    TAG: "5.3"
+  extends: puppetserver_53
+  only:
+    - master
 
 # puppetserver_60:
 #   extends: .puppetserver
@@ -36,34 +47,35 @@ puppetserver_53:
 #     PUPPETDB_TERMINI_VERSION: '6.0.2'
 #     TAG: '6.0'
 
-puppetserver_61:
-  variables:
-    PUPPET_SERVER_VERSION: '6.1.0'
-    PUPPETDB_TERMINI_VERSION: '6.1.0'
-    TAG: '6.1'
-  extends: .puppetserver
-
-# PuppetDb
-.puppetdb:
-  extends: .dockerbuild
-  script:
-    - docker build -t docker.io/vshn/puppet-puppetdb:${TAG}-${CI_COMMIT_REF_NAME} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
-    - docker push docker.io/vshn/puppet-puppetdb:${TAG}-${CI_COMMIT_REF_NAME}
-
-puppetdb_52:
-  extends: .puppetdb
-  variables:
-    PUPPETDB_VERSION: '5.2.7'
-    TAG: '5.2'
-
-# puppetdb_60:
-#   extends: .puppetdb
+# puppetserver_61:
 #   variables:
-#     PUPPETDB_VERSION: '6.0.2'
-#     TAG: '6.0'
+#     PUPPET_SERVER_VERSION: '6.1.0'
+#     PUPPETDB_TERMINI_VERSION: '6.1.0'
+#     TAG: "6.1-${CI_COMMIT_REF_NAME}"
+#   extends: .puppetserver
 
-puppetdb_61:
-  extends: .puppetdb
-  variables:
-    PUPPETDB_VERSION: '6.1.0'
-    TAG: '6.1'
+# # PuppetDB
+# .puppetdb:
+#   extends: .dockerbuild
+#   script:
+#     - docker build -t docker.io/vshn/puppet-puppetdb:${TAG} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
+#     - docker push docker.io/vshn/puppet-puppetdb:${TAG}
+
+# puppetdb_52:
+#   variables:
+#     PUPPETDB_VERSION: '5.2.7'
+#     TAG: '5.2'
+#   extends: .puppetdb
+
+# # puppetdb_60:
+# #   extends: .puppetdb
+# #   variables:
+# #     PUPPETDB_VERSION: '6.0.2'
+# #     TAG: '6.0'
+
+# puppetdb_61:
+#   variables:
+#     PUPPETDB_VERSION: '6.1.0'
+#     TAG: '6.1'
+#   extends: .puppetdb
+
