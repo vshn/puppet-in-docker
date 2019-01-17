@@ -1,0 +1,26 @@
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+
+.dockerbuild:
+  stage: build
+  tags: [ dockerbuild ]
+
+.build_ref:
+  extends: .dockerbuild
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME --build-arg "PUPPET_SERVER_VERSION=$PUPPET_SERVER_VERSION" --build-arg "PUPPETDB_TERMINI_VERSION=$PUPPETDB_TERMINI_VERSION" .
+    - docker push $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME
+
+build_53:
+  extends: .build_ref
+  variables:
+    PUPPET_SERVER_VERSION: '5.3.7'
+    PUPPETDB_TERMINI_VERSION: '5.2.7'
+    TAG: '5.3'
