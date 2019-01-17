@@ -15,7 +15,7 @@ before_script:
 .puppetserver:
   extends: .dockerbuild
   script:
-    - docker build -f puppetserver/Dockerfile -t $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME --build-arg "PUPPET_SERVER_VERSION=$PUPPET_SERVER_VERSION" --build-arg "PUPPETDB_TERMINI_VERSION=$PUPPETDB_TERMINI_VERSION" .
+    - docker build -t $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME --build-arg "PUPPET_SERVER_VERSION=$PUPPET_SERVER_VERSION" --build-arg "PUPPETDB_TERMINI_VERSION=$PUPPETDB_TERMINI_VERSION" puppetserver
     - docker push $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME
 
 puppetserver_53:
