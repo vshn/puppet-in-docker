@@ -24,3 +24,17 @@ puppetserver_53:
     PUPPET_SERVER_VERSION: '5.3.7'
     PUPPETDB_TERMINI_VERSION: '5.2.7'
     TAG: '5.3'
+
+puppetserver_60:
+  extends: .puppetserver
+  variables:
+    PUPPET_SERVER_VERSION: '6.0.3'
+    PUPPETDB_TERMINI_VERSION: '6.0.2'
+    TAG: '6.0'
+
+puppetserver_61:
+  extends: .puppetserver
+  variables:
+    PUPPET_SERVER_VERSION: '6.1.0'
+    PUPPETDB_TERMINI_VERSION: '6.1.0'
+    TAG: '6.1'
