@@ -17,9 +17,9 @@ before_script:
 .puppetserver:
   extends: .dockerbuild
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME --build-arg "PUPPET_SERVER_VERSION=$PUPPET_SERVER_VERSION" --build-arg "PUPPETDB_TERMINI_VERSION=$PUPPETDB_TERMINI_VERSION" puppetserver
-    - docker push $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME
-    - docker push docker.io/vshn/puppet-puppetserver:${TAG}
+    - docker build -t ${CI_REGISTRY_IMAGE}:${TAG}-${CI_COMMIT_REF_NAME} --build-arg "PUPPET_SERVER_VERSION=${PUPPET_SERVER_VERSION}" --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}" puppetserver
+    - docker push ${CI_REGISTRY_IMAGE}:${TAG}-${CI_COMMIT_REF_NAME}
+    - docker push docker.io/vshn/puppet-puppetserver:${TAG}-${CI_COMMIT_REF_NAME}
 
 puppetserver_53:
   extends: .puppetserver
@@ -46,9 +46,9 @@ puppetserver_61:
 .puppetdb:
   extends: .dockerbuild
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME --build-arg "PUPPETDB_VERSION=$PUPPETDB_VERSION" puppetdb
-    - docker push $CI_REGISTRY_IMAGE:$TAG-$CI_COMMIT_REF_NAME
-    - docker push docker.io/vshn/puppet-puppetdb:${TAG}
+    - docker build -t ${CI_REGISTRY_IMAGE}:${TAG}-${CI_COMMIT_REF_NAME} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
+    - docker push ${CI_REGISTRY_IMAGE}:${TAG}-${CI_COMMIT_REF_NAME}
+    - docker push docker.io/vshn/puppet-puppetdb:${TAG}-${CI_COMMIT_REF_NAME}
 
 puppetdb_52:
   extends: .puppetserver
