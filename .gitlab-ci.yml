@@ -17,16 +17,17 @@ before_script:
 .puppetserver:
   extends: .dockerbuild
   script:
-    - docker build -t ${CI_REGISTRY_IMAGE}:${TAG}-${CI_COMMIT_REF_NAME} --build-arg "PUPPET_SERVER_VERSION=${PUPPET_SERVER_VERSION}" --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}" puppetserver
-    - docker build -t docker.io/vshn/puppet-puppetserver:${TAG}-${CI_COMMIT_REF_NAME} --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}" puppetserver
+    - docker build -t docker.io/vshn/puppet-puppetserver:${TAG}-${CI_COMMIT_REF_NAME} 
+        --build-arg "PUPPET_SERVER_VERSION=${PUPPET_SERVER_VERSION}"
+        --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}" puppetserver
     - docker push docker.io/vshn/puppet-puppetserver:${TAG}-${CI_COMMIT_REF_NAME}
 
 puppetserver_53:
-  extends: .puppetserver
   variables:
     PUPPET_SERVER_VERSION: '5.3.7'
     PUPPETDB_TERMINI_VERSION: '5.2.7'
     TAG: '5.3'
+  extends: .puppetserver
 
 # puppetserver_60:
 #   extends: .puppetserver
@@ -36,17 +37,16 @@ puppetserver_53:
 #     TAG: '6.0'
 
 puppetserver_61:
-  extends: .puppetserver
   variables:
     PUPPET_SERVER_VERSION: '6.1.0'
     PUPPETDB_TERMINI_VERSION: '6.1.0'
     TAG: '6.1'
+  extends: .puppetserver
 
 # PuppetDb
 .puppetdb:
   extends: .dockerbuild
   script:
-    - docker build -t ${CI_REGISTRY_IMAGE}:${TAG}-${CI_COMMIT_REF_NAME} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
     - docker build -t docker.io/vshn/puppet-puppetdb:${TAG}-${CI_COMMIT_REF_NAME} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
     - docker push docker.io/vshn/puppet-puppetdb:${TAG}-${CI_COMMIT_REF_NAME}
 
