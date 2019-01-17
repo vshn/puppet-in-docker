@@ -31,15 +31,14 @@ puppetserver_53:
     PUPPETDB_TERMINI_VERSION: '5.2.7'
     TAG: "5.3-${CI_COMMIT_REF_NAME}"
   extends: .puppetserver
-  only:
-    - devel
+  only: [ devel, tags ]
+
 
 puppetserver_53_master:
   variables:
     TAG: "5.3"
   extends: puppetserver_53
-  only:
-    - master
+  only: [ master ]
 
 puppetserver_61:
   variables:
@@ -47,15 +46,13 @@ puppetserver_61:
     PUPPETDB_TERMINI_VERSION: '6.1.0'
     TAG: "6.1-${CI_COMMIT_REF_NAME}"
   extends: .puppetserver
-  only:
-    - devel
+  only: [ devel, tags ]
 
 puppetserver_61_master:
   variables:
     TAG: "6.1"
   extends: puppetserver_61
-  only:
-    - master
+  only: [ master ]
 
 # PuppetDB
 .puppetdb:
@@ -69,7 +66,7 @@ puppetdb_52:
     PUPPETDB_VERSION: '5.2.7'
     TAG: '5.2-${CI_COMMIT_REF_NAME}'
   extends: .puppetdb
-  only: [ devel ]
+  only: [ devel, tags ]
 
 puppetdb_52_master:
   variables:
@@ -82,7 +79,7 @@ puppetdb_61:
     PUPPETDB_VERSION: '6.1.0'
     TAG: '6.1-${CI_COMMIT_REF_NAME}'
   extends: .puppetdb
-  only: [ devel ]
+  only: [ devel, tags ]
 
 puppetdb_61_master:
   variables:
