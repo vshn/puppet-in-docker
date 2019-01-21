@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Changed
 - puppetserver and puppetdb Dockerfile can now build other versions via build-args
+- Update r10k components to current versions
 
 ### Added
 - gitlab-ci config to build and push to dockerhub
