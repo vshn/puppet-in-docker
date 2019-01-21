@@ -77,7 +77,7 @@ puppetdb_52_master:
 puppetdb_61:
   variables:
     PUPPETDB_VERSION: '6.1.0'
-    TAG: '6.1-${CI_COMMIT_REF_NAME}'
+    TAG: "6.1-${CI_COMMIT_REF_NAME}"
   extends: .puppetdb
   only: [ devel, tags ]
 
@@ -91,12 +91,13 @@ puppetdb_61_master:
 .r10k:
   extends: .dockerbuild
   script:
-    - docker build -t ${REGISTRY_PATH}/puppet-r10k:${TAG} r10k
+    - docker build -t ${REGISTRY_PATH}/puppet-r10k:${TAG} --build-arg "PUPPET_AGENT_VERSION=${PUPPET_AGENT_VERSION}" r10k
     - docker push ${REGISTRY_PATH}/puppet-r10k:${TAG}
 
 r10k:
   variables:
-    TAG: '5.5-${CI_COMMIT_REF_NAME}'
+    PUPPET_AGENT_VERSION: 5.5.7
+    TAG: "5.5-${CI_COMMIT_REF_NAME}"
   extends: .r10k
   only: [ devel, tags ]
 
@@ -110,12 +111,13 @@ r10k_master:
 .mcoclient:
   extends: .dockerbuild
   script:
-    - docker build -t ${REGISTRY_PATH}/puppet-mcoclient:${TAG} mcoclient
+    - docker build -t ${REGISTRY_PATH}/puppet-mcoclient:${TAG} --build-arg "PUPPET_AGENT_VERSION=${PUPPET_AGENT_VERSION}" mcoclient
     - docker push ${REGISTRY_PATH}/puppet-mcoclient:${TAG}
 
 mcoclient:
   variables:
-    TAG: '5.5-${CI_COMMIT_REF_NAME}'
+    PUPPET_AGENT_VERSION: 5.5.7
+    TAG: "5.5-${CI_COMMIT_REF_NAME}"
   extends: .mcoclient
   only: [ devel, tags ]
 
@@ -123,4 +125,23 @@ mcoclient_master:
   variables:
     TAG: '5.5'
   extends: mcoclient
+  only: [ master ]
+
+# haproxy
+.haproxy:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-haproxy:${TAG} haproxy
+    - docker push ${REGISTRY_PATH}/puppet-haproxy:${TAG}
+
+haproxy:
+  variables:
+    TAG: $CI_COMMIT_REF_NAME
+  extends: .haproxy
+  only: [ devel, tags ]
+
+haproxy_master:
+  variables:
+    TAG: latest
+  extends: haproxy
   only: [ master ]
