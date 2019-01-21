@@ -86,3 +86,41 @@ puppetdb_61_master:
     TAG: '6.1'
   extends: puppetdb_61
   only: [ master ]
+
+# r10k
+.r10k:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-r10k:${TAG} r10k
+    - docker push ${REGISTRY_PATH}/puppet-r10k:${TAG}
+
+r10k:
+  variables:
+    TAG: '5.5-${CI_COMMIT_REF_NAME}'
+  extends: .r10k
+  only: [ devel, tags ]
+
+r10k_master:
+  variables:
+    TAG: '5.5'
+  extends: r10k
+  only: [ master ]
+
+# mcoclient
+.mcoclient:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-mcoclient:${TAG} mcoclient
+    - docker push ${REGISTRY_PATH}/puppet-mcoclient:${TAG}
+
+mcoclient:
+  variables:
+    TAG: '5.5-${CI_COMMIT_REF_NAME}'
+  extends: .mcoclient
+  only: [ devel, tags ]
+
+mcoclient_master:
+  variables:
+    TAG: '5.5'
+  extends: mcoclient
+  only: [ master ]
