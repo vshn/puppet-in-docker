@@ -15,8 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - gitlab-ci config for haproxy
 
 ### Removed
-- Support for lagacy PuppetDB API
+- Support for legacy PuppetDB API
 - Puppet 4 Server Dockerfile
+- Remains of Puppet 3.8 and more legacy API
 
 ## v2.4.0
 ### Added
