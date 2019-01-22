@@ -13,7 +13,7 @@ if [ "$1" = 'nats' ]; then
   fi
 
   echo "===> Starting NATS ${NATS_VERSION}"
-  exec /lib/ld-musl-x86_64.so.1 /usr/local/bin/gnatsd -c /etc/nats/gnatsd.conf
+  exec /usr/local/bin/gnatsd -c /etc/nats/gnatsd.conf
 fi
 
 # Run CMD

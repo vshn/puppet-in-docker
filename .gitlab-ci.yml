@@ -145,3 +145,23 @@ haproxy_master:
     TAG: latest
   extends: haproxy
   only: [ master ]
+
+# nats
+.nats:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-nats:${TAG} --build-arg "NATS_VERSION=${NATS_VERSION}" nats
+    - docker push ${REGISTRY_PATH}/puppet-nats:${TAG}
+
+nats:
+  variables:
+    NATS_VERSION: 1.4.0
+    TAG: "1.4-${CI_COMMIT_REF_NAME}"
+  extends: .nats
+  only: [ devel, tags ]
+
+nats_master:
+  variables:
+    TAG: '1.4'
+  extends: nats
+  only: [ master ]
