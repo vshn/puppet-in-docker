@@ -4,13 +4,8 @@ CN=$(hostname)
 CA_SERVER=${CA_SERVER:-puppetca.local}
 CERTFILE="/etc/puppetlabs/puppet/ssl/certs/${CN}.pem"
 
-if [ "${USE_LEGACY_CA_API}" == "true" ]; then
-  CA_API_URL=https://${CA_SERVER}:8140/production/certificate/ca
-  CRL_API_URL=https://${CA_SERVER}:8140/production/certificate_revocation_list/ca
-else
-  CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
-  CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
-fi
+CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
+CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
 
 echo "---> Ensure correct permissions on puppet ssl certificates"
 chown -R puppetdb:root /etc/puppetlabs/puppet/ssl
@@ -28,7 +23,6 @@ if [ ! -f ${CERTFILE} ]; then
     /usr/local/bin/request-cert.rb \
     --caserver ${CA_SERVER} \
     --cn ${CN} \
-    --legacy ${USE_LEGACY_CA_API} \
     --ssldir /etc/puppetlabs/puppet/ssl"
 
   if [ ! -f ${CERTFILE} ]; then
