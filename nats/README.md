@@ -15,7 +15,6 @@ uses NATS.
 | Name                 | Description                               | Default value      |
 | ----                 | ----------------------------------------- | -------------      |
 | CA_SERVER            | Puppet CA server to request certificate   | puppetca.local     |
-| USE_LEGACY_CA_API    | If set to true, sets CA API URLs for Puppet 3.8 | -                  |
 
 ## Details
 

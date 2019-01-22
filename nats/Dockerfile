@@ -1,7 +1,7 @@
-FROM alpine:3.4
+FROM alpine:3.6
 
-ENV DUMB_INIT_VERSION="1.2.1" \
-    NATS_VERSION="0.9.6"
+ARG NATS_VERSION="0.9.6"
+ENV DUMB_INIT_VERSION="1.2.2"
 
 LABEL org.label-schema.vendor="VSHN AG" \
       org.label-schema.url="https://github.com/vshn/puppet-in-docker" \

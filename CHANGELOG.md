@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Changed
+- puppetserver and puppetdb Dockerfile can now build other versions via build-args
+- Update r10k components to current versions
+- Update nats components, add nats to gitlab-ci
+- Update README
+
+### Added
+- gitlab-ci config to build and push to dockerhub
+- gitlab-ci config for haproxy
+
+### Removed
+- Support for legacy PuppetDB API
+- Puppet 4 Server Dockerfile
+- Remains of Puppet 3.8 and more legacy API
+
 ## v2.4.0
 ### Added
 - manage maximum-pool-size setting, default value 25
