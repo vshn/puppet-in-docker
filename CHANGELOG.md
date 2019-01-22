@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## v3.0.1
 ### Changed
 - puppetserver and puppetdb Dockerfile can now build other versions via build-args
 - Update r10k components to current versions
@@ -14,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - gitlab-ci config to build and push to dockerhub
 - gitlab-ci config for haproxy
+- gitlab-ci for postgres build
 
 ### Removed
 - Support for legacy PuppetDB API

@@ -165,3 +165,22 @@ nats_master:
     TAG: '1.4'
   extends: nats
   only: [ master ]
+
+# postgres
+.postgres:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-postgres:${TAG} postgres
+    - docker push ${REGISTRY_PATH}/puppet-postgres:${TAG}
+
+postgres:
+  variables:
+    TAG: $CI_COMMIT_REF_NAME
+  extends: .postgres
+  only: [ devel, tags ]
+
+postgres_master:
+  variables:
+    TAG: latest
+  extends: postgres
+  only: [ master ]
