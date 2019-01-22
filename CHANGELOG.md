@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - gitlab-ci config to build and push to dockerhub
 - gitlab-ci config for haproxy
+- gitlab-ci for postgres build
 
 ### Removed
 - Support for legacy PuppetDB API
