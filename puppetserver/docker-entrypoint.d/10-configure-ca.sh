@@ -5,13 +5,8 @@ CA_SERVER=${CA_SERVER:-puppetca.local}
 CA_TTL=${CA_TTL:-5y}
 AUTOSIGN=${AUTOSIGN:-true}
 
-if [ "${USE_LEGACY_CA_API}" == "true" ]; then
-  CA_API_URL=https://${CA_SERVER}:8140/production/certificate/ca
-  CRL_API_URL=https://${CA_SERVER}:8140/production/certificate_revocation_list/ca
-else
-  CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
-  CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
-fi
+CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
+CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
 
 # Configure Puppetserver to be a CA when enabled
 if [ "${CA}" != "enabled" ]; then
@@ -32,7 +27,6 @@ EOF
       /usr/local/bin/request-cert.rb \
       --caserver ${CA_SERVER} \
       --cn ${CN} \
-      --legacy ${USE_LEGACY_CA_API} \
       --ssldir /etc/puppetlabs/puppet/ssl;
       exit $?"
   fi
