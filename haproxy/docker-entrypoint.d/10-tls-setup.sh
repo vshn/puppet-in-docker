@@ -7,13 +7,8 @@ KEYFILE="/usr/local/etc/haproxy/ssl/private_keys/${CN}.pem"
 HAPROXY_PEM_FILE="/usr/local/etc/haproxy/ssl/haproxy.pem"
 CRL_FILE="/usr/local/etc/haproxy/ssl/crl.pem"
 
-if [ "${USE_LEGACY_CA_API}" == "true" ]; then
-  CA_API_URL=https://${CA_SERVER}:8140/production/certificate/ca
-  CRL_API_URL=https://${CA_SERVER}:8140/production/certificate_revocation_list/ca
-else
-  CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
-  CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
-fi
+CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
+CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
 
 if [ "${SKIP_CRL_DOWNLOAD}" == "true" ]; then
   echo "---> Skipping CRL download from ${CA_SERVER}"
@@ -41,7 +36,6 @@ if [ ! -f ${HAPROXY_PEM_FILE} ]; then
         /usr/local/bin/request-cert.rb \
         --caserver ${CA_SERVER} \
         --cn ${CN} \
-        --legacy ${USE_LEGACY_CA_API} \
         --ssldir /usr/local/etc/haproxy/ssl"
 
     if [ ! -f ${CERTFILE} ]; then

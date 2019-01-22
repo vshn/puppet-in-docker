@@ -1,12 +1,12 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ENV PUPPET_AGENT_VERSION="5.3.3" \
-    R10K_VERSION="2.6.2" \
-    DUMB_INIT_VERSION="1.2.1" \
-    UBUNTU_CODENAME="xenial" \
-    PUPPET_MODULE_CHORIA_VERSION="0.6.0" \
-    PUPPET_MODULE_R10K_VERSION="6.3.2" \
-    GWS_VERSION="0.1.8" \
+ARG PUPPET_AGENT_VERSION="5.5.7"
+ENV R10K_VERSION="2.6.4" \
+    DUMB_INIT_VERSION="1.2.2" \
+    UBUNTU_CODENAME="bionic" \
+    PUPPET_MODULE_CHORIA_VERSION="0.12.0" \
+    PUPPET_MODULE_R10K_VERSION="6.8.0" \
+    GWS_VERSION="0.2.0" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 LABEL org.label-schema.vendor="VSHN AG" \
@@ -26,23 +26,23 @@ COPY Dockerfile /
 # TODO checksum check
 RUN apt-get update && \
     apt-get install -y wget git netcat && \
-    wget https://apt.puppetlabs.com/puppet5-release-"$UBUNTU_CODENAME".deb && \
-    wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    wget https://github.com/StreakyCobra/gws/releases/download/"$GWS_VERSION"/gws -O /usr/local/bin/gws && \
+    wget https://apt.puppetlabs.com/puppet5-release-"${UBUNTU_CODENAME}".deb && \
+    wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"${DUMB_INIT_VERSION}"_amd64.deb && \
+    wget https://github.com/StreakyCobra/gws/releases/download/"${GWS_VERSION}"/gws-"${GWS_VERSION}" -O /usr/local/bin/gws && \
     chmod +x /usr/local/bin/gws && \
-    dpkg -i puppet5-release-"$UBUNTU_CODENAME".deb && \
-    dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    rm puppet5-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    dpkg -i puppet5-release-"${UBUNTU_CODENAME}".deb && \
+    dpkg -i dumb-init_"${DUMB_INIT_VERSION}"_amd64.deb && \
+    rm puppet5-release-"${UBUNTU_CODENAME}".deb dumb-init_"${DUMB_INIT_VERSION}"_amd64.deb && \
     apt-get update && \
-    apt-get install --no-install-recommends -y puppet-agent="$PUPPET_AGENT_VERSION"-1"$UBUNTU_CODENAME" && \
-    gem install r10k --version $R10K_VERSION --no-ri --no-rdoc && \
+    apt-get install --no-install-recommends -y puppet-agent="${PUPPET_AGENT_VERSION}"-1"${UBUNTU_CODENAME}" && \
+    gem install r10k --version "${R10K_VERSION}" --no-ri --no-rdoc && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install and configure MCollective using Choria from R.I.Pienaar
 # Install r10k
-RUN puppet module install choria-mcollective_choria --version "$PUPPET_MODULE_CHORIA_VERSION" --target-dir /tmp/modules && \
-    puppet module install puppet-r10k --version "$PUPPET_MODULE_R10K_VERSION" --target-dir /tmp/modules
+RUN puppet module install choria-mcollective_choria --version "${PUPPET_MODULE_CHORIA_VERSION}" --target-dir /tmp/modules && \
+    puppet module install puppet-r10k --version "${PUPPET_MODULE_R10K_VERSION}" --target-dir /tmp/modules
 COPY build/hiera.yaml build/common.yaml build/main.pp /tmp/
 RUN apt-get update && puppet apply --hiera_config=/tmp/hiera.yaml --modulepath=/tmp/modules /tmp/main.pp && \
     apt-get clean && rm -rf /var/lib/apt/lists/*

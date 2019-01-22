@@ -1,8 +1,9 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ENV PUPPETDB_VERSION="5.1.5" \
-    DUMB_INIT_VERSION="1.2.1" \
-    UBUNTU_CODENAME="xenial" \
+ARG PUPPETDB_VERSION="5.2.7"
+
+ENV DUMB_INIT_VERSION="1.2.2" \
+    UBUNTU_CODENAME="bionic" \
     PUPPETDB_USER=puppetdb \
     PUPPETDB_PASSWORD=puppetdb \
     PUPPETDB_JAVA_ARGS="-Djava.net.preferIPv4Stack=true -Xms256m -Xmx256m" \
@@ -29,11 +30,12 @@ COPY Dockerfile /
 # TODO checksum check
 RUN apt-get update && \
     apt-get install -y wget netcat curl vim ruby && \
-    wget https://apt.puppetlabs.com/puppet5-release-"$UBUNTU_CODENAME".deb && \
+    major_version=$(echo "${PUPPETDB_VERSION}" | cut -d. -f1) && \
+    wget https://apt.puppetlabs.com/puppet"$major_version"-release-"$UBUNTU_CODENAME".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    dpkg -i puppet5-release-"$UBUNTU_CODENAME".deb && \
+    dpkg -i puppet"$major_version"-release-"$UBUNTU_CODENAME".deb && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    rm puppet5-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    rm puppet"$major_version"-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
     apt-get install --no-install-recommends -y puppetdb="$PUPPETDB_VERSION"-1"$UBUNTU_CODENAME" && \
     apt-get clean && \

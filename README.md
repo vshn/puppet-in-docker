@@ -1,12 +1,11 @@
-# Puppet 5 Infrastructure - Running in Docker
-
-**WARNING: These Dockerfiles are brand new - there is no field testing made yet.**
-**This will be done over the following weeks. Then we'll also do a first release.**
+# Puppet Infrastructure - Running in Docker
 
 ## Introduction
 
-This repository contains Dockerfiles for a complete Puppet 5 infrastructure
+This repository contains Dockerfiles for a complete Puppet 5/6 infrastructure
 running in Docker. The following components are used:
+
+*WARNING* Puppet 3.8 and Puppet 4 Support is completeley removed with the v3 release.
 
 * [**HAProxy**](http://www.haproxy.org/): Reverse proxy for splitting traffic between CA and catalog
   compilation
@@ -71,17 +70,6 @@ Thanks a lot to R.I.Pienaar!
 * To cleanup data, the script `cleanup-data.sh` can be used:
   * `cleanup-data.sh data`: removes data inside the volumes
   * `cleanup-data.sh volumes`: removes all docker volumes
-
-## Puppet 3.x migration helper
-
-To support migrating scenarios from older versions of Puppet, there are some Dockerfiles
-available, suitably called `Dockerfile.legacy`. Also HAProxy supports CA connections
-to old Puppet Master servers. It is possible for running a PuppetDB 2.3.x  which gets used
-by Puppetserver and Puppet Master at the same time. This helps in migrating from
-3.x to 4.x.
-
-See `docker-compose-legacy.yaml` for an example Docker Compose file which only
-starts components needed and connects to an Puppet 3.x infrastructure.
 
 ## Credits
 

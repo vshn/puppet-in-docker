@@ -1,0 +1,167 @@
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  REGISTRY_PATH: docker.io/vshn
+
+stages:
+  - build
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  - echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USER --password-stdin
+
+.dockerbuild:
+  stage: build
+  tags: [ dockerbuild ]
+
+# Puppetserver
+.puppetserver:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-puppetserver:${TAG}
+        --build-arg "PUPPET_SERVER_VERSION=${PUPPET_SERVER_VERSION}"
+        --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}" puppetserver
+    - docker push ${REGISTRY_PATH}/puppet-puppetserver:${TAG}
+
+puppetserver_53:
+  variables:
+    PUPPET_SERVER_VERSION: '5.3.7'
+    PUPPETDB_TERMINI_VERSION: '5.2.7'
+    TAG: "5.3-${CI_COMMIT_REF_NAME}"
+  extends: .puppetserver
+  only: [ devel, tags ]
+
+
+puppetserver_53_master:
+  variables:
+    TAG: "5.3"
+  extends: puppetserver_53
+  only: [ master ]
+
+puppetserver_61:
+  variables:
+    PUPPET_SERVER_VERSION: '6.1.0'
+    PUPPETDB_TERMINI_VERSION: '6.1.0'
+    TAG: "6.1-${CI_COMMIT_REF_NAME}"
+  extends: .puppetserver
+  only: [ devel, tags ]
+
+puppetserver_61_master:
+  variables:
+    TAG: "6.1"
+  extends: puppetserver_61
+  only: [ master ]
+
+# PuppetDB
+.puppetdb:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-puppetdb:${TAG} --build-arg "PUPPETDB_VERSION=${PUPPETDB_VERSION}" puppetdb
+    - docker push ${REGISTRY_PATH}/puppet-puppetdb:${TAG}
+
+puppetdb_52:
+  variables:
+    PUPPETDB_VERSION: '5.2.7'
+    TAG: '5.2-${CI_COMMIT_REF_NAME}'
+  extends: .puppetdb
+  only: [ devel, tags ]
+
+puppetdb_52_master:
+  variables:
+    TAG: '5.2'
+  extends: puppetdb_52
+  only: [ master ]
+
+puppetdb_61:
+  variables:
+    PUPPETDB_VERSION: '6.1.0'
+    TAG: "6.1-${CI_COMMIT_REF_NAME}"
+  extends: .puppetdb
+  only: [ devel, tags ]
+
+puppetdb_61_master:
+  variables:
+    TAG: '6.1'
+  extends: puppetdb_61
+  only: [ master ]
+
+# r10k
+.r10k:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-r10k:${TAG} --build-arg "PUPPET_AGENT_VERSION=${PUPPET_AGENT_VERSION}" r10k
+    - docker push ${REGISTRY_PATH}/puppet-r10k:${TAG}
+
+r10k:
+  variables:
+    PUPPET_AGENT_VERSION: 5.5.7
+    TAG: "5.5-${CI_COMMIT_REF_NAME}"
+  extends: .r10k
+  only: [ devel, tags ]
+
+r10k_master:
+  variables:
+    TAG: '5.5'
+  extends: r10k
+  only: [ master ]
+
+# mcoclient
+.mcoclient:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-mcoclient:${TAG} --build-arg "PUPPET_AGENT_VERSION=${PUPPET_AGENT_VERSION}" mcoclient
+    - docker push ${REGISTRY_PATH}/puppet-mcoclient:${TAG}
+
+mcoclient:
+  variables:
+    PUPPET_AGENT_VERSION: 5.5.7
+    TAG: "5.5-${CI_COMMIT_REF_NAME}"
+  extends: .mcoclient
+  only: [ devel, tags ]
+
+mcoclient_master:
+  variables:
+    TAG: '5.5'
+  extends: mcoclient
+  only: [ master ]
+
+# haproxy
+.haproxy:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-haproxy:${TAG} haproxy
+    - docker push ${REGISTRY_PATH}/puppet-haproxy:${TAG}
+
+haproxy:
+  variables:
+    TAG: $CI_COMMIT_REF_NAME
+  extends: .haproxy
+  only: [ devel, tags ]
+
+haproxy_master:
+  variables:
+    TAG: latest
+  extends: haproxy
+  only: [ master ]
+
+# nats
+.nats:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-nats:${TAG} --build-arg "NATS_VERSION=${NATS_VERSION}" nats
+    - docker push ${REGISTRY_PATH}/puppet-nats:${TAG}
+
+nats:
+  variables:
+    NATS_VERSION: 1.4.0
+    TAG: "1.4-${CI_COMMIT_REF_NAME}"
+  extends: .nats
+  only: [ devel, tags ]
+
+nats_master:
+  variables:
+    TAG: '1.4'
+  extends: nats
+  only: [ master ]
