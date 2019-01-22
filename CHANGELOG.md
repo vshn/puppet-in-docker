@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## v3.0.1
 ### Changed
 - puppetserver and puppetdb Dockerfile can now build other versions via build-args
 - Update r10k components to current versions
