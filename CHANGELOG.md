@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.0.2
+### Fixed
+- Fix openssl dependency in ruby request-cert scripts
+
 ## v3.0.1
 ### Changed
 - puppetserver and puppetdb Dockerfile can now build other versions via build-args

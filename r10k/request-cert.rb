@@ -3,6 +3,7 @@ require "net/http"
 require "resolv"
 require "fileutils"
 require "optparse"
+require "openssl"
 
 @options = {}
 OptionParser.new do |opt|
