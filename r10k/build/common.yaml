@@ -8,6 +8,10 @@ mcollective::facts_refresh_interval: 10
 mcollective::policy_default: allow
 mcollective::purge: true
 
+mcollective_util_actionpolicy::server_config:
+  allow_unconfigured: 1
+  enable_default: 0
+
 # Choria specific
 mcollective_choria::config:
   "puppetserver_host": "PUPPETSERVER"
