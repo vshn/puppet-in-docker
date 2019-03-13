@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.1.0
+### Fixed
+- Configure choria allow_unconfigured because default changed in choria-plugins/action-policy 3.1.0
+
 ## v3.0.2
 ### Fixed
 - Fix openssl dependency in ruby request-cert scripts
