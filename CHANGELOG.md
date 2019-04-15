@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.2.0
+### Changed
+- Acquire lock before executing r10k
+
 ## v3.1.0
 ### Fixed
 - Configure choria allow_unconfigured because default changed in choria-plugins/action-policy 3.1.0
