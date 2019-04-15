@@ -2,7 +2,7 @@ module MCollective
   module Agent
     class R10kcli<RPC::Agent
       action "deploy_module" do
-        command = "r10k deploy module #{request[:module]} #{request[:args]}"
+        command = "flock --exclusive /tmp/r10k-#{request[:environment]}.lock r10k deploy module #{request[:module]} #{request[:args]}"
         Log.info("Running '#{command}'")
 
         reply[:status] = run(command,
@@ -15,7 +15,7 @@ module MCollective
       end
 
       action "deploy" do
-        command = "r10k deploy environment -p #{request[:environment]} #{request[:args]}"
+        command = "flock --exclusive /tmp/r10k-#{request[:environment]}.lock r10k deploy environment -p #{request[:environment]} #{request[:args]}"
         Log.info("Running '#{command}'")
 
         reply[:status] = run(command,
