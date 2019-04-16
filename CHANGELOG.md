@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.2.1
+### Changed
+- Acquire global lock before executing r10k for any environment, not a lock per
+  environment
+
 ## v3.2.0
 ### Changed
 - Acquire lock before executing r10k
