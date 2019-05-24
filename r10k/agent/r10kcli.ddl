@@ -4,7 +4,7 @@ metadata :name        => 'r10kcli',
          :license     => 'BSD-3-Clause',
          :version     => '1.0',
          :url         => 'https://github.com/vshn/puppet-in-docker/blob/master/r10k/README.md',
-         :timeout     => 60
+         :timeout     => 180
 
 action 'deploy_module', :description => 'Deploys a Module' do
     display :always
