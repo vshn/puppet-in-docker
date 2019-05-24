@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.3.0
+### Changed
+- Higher mco r10kcli timeouts because global lock delays execution more
+
 ## v3.2.1
 ### Changed
 - Acquire global lock before executing r10k for any environment, not a lock per
