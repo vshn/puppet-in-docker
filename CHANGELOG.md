@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.4.0
+### Changed
+- Use latest puppetserver 5.3.8, with puppetdb-termini 5.2.9
+- Use latest puppetserver 6.4.0, with puppetdb-termini 6.3.4
+- Use latest puppetdb 6.3.4
+- Use latest puppet 5.5.14 for mcoclient and r10k
+
+### Removed
+- Drop support for puppetserver 6.1
+- Drop support for puppetdb 6.1
+
 ## v3.3.0
 ### Changed
 - Higher mco r10kcli timeouts because global lock delays execution more
