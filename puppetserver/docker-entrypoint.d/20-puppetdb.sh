@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-CN=$(hostname)
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
 
 PUPPETDB_URL=https://${PUPPETDB_SERVER_URL}/status/v1/services/puppetdb-status
 

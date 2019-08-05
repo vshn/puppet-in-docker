@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-CN=$(hostname)
 CA_SERVER=${CA_SERVER:-puppetca.local}
 CA_TTL=${CA_TTL:-5y}
 AUTOSIGN=${AUTOSIGN:-true}
 
 CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
 CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
+
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
 
 # Configure Puppetserver to be a CA when enabled
 if [ "${CA}" != "enabled" ]; then
