@@ -36,7 +36,7 @@ frontend puppet-frontend
   acl ca_current path -m beg /puppet-ca
   acl catalog path -m beg /puppet/v3/catalog
   # /:environment/certificate/:nodename
-  default_backend puppet-backend
+  default_backend puppet-default-backend
   use_backend puppet-ca-backend if ca_current
   use_backend puppet-catalog-backend if catalog
 
