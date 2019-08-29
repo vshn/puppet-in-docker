@@ -1,4 +1,4 @@
-FROM haproxy:1.7-alpine
+FROM haproxy:1.9-alpine
 
 ENV DUMB_INIT_VERSION="1.2.2" \
     CONFD_VERSION="0.16.0"

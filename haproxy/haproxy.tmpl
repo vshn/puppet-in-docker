@@ -1,8 +1,7 @@
 global
-  log  /dev/log local0
-  log  /dev/log local1 notice
-  maxconn  2048
-  tune.ssl.default-dh-param  2048
+  log stdout local0
+  maxconn 2048
+  tune.ssl.default-dh-param 2048
 
 defaults
   log  global

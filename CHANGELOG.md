@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Added
 - Support splitting of catalog request to other puppetserver
+- Support haproxy logs to syslog UDP
 
 ## v3.4.0
 ### Changed

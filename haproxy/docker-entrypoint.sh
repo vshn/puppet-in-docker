@@ -12,7 +12,7 @@ if [ "$1" = 'haproxy' ]; then
     echo "===> End of hooks"
   fi
 
-  echo "===> Starting HAProxy (and syslogd)"
+  echo "===> Starting HAProxy"
   exec /bin/sh -c \
     "/sbin/syslogd -O /dev/stdout && \
     sleep 5 && \
