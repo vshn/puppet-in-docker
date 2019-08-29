@@ -35,10 +35,11 @@ frontend puppet-frontend
   http-request set-header X-Client-Cert "-----BEGIN CERTIFICATE-----%%0A%[ssl_c_der,base64]%%0A-----END CERTIFICATE----- #" if { ssl_c_used }
   # /puppet-ca/v1/:indirection/:key?environment=:environment
   acl ca_current path -m beg /puppet-ca
+  acl catalog path -m beg /puppet/v3/catalog
   # /:environment/certificate/:nodename
-  acl ca_legacy path -m reg ^/[^/]+/certificate(|_status|_request|_revocation_list)/
   default_backend puppet-backend
-  use_backend puppet-ca-backend if ca_current or ca_legacy
+  use_backend puppet-ca-backend if ca_current
+  use_backend puppet-catalog-backend if catalog
 
 frontend puppetdb-frontend
   bind *:8081 ssl crt /usr/local/etc/haproxy/ssl/haproxy.pem ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem verify optional crl-file /usr/local/etc/haproxy/ssl/crl.pem
@@ -55,13 +56,21 @@ frontend puppetexplorer-frontend
   mode http
   default_backend puppetexplorer-backend
 
-backend puppet-backend
+backend puppet-default-backend
   balance roundrobin
   mode http
   option tcp-check
   stick on src
   stick-table type ip size 1m expire 1m
   server puppetserver {{getenv "PUPPETSERVER_BACKEND"}}:8140 check port 8140 inter 5s ssl verify required ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem crl-file /usr/local/etc/haproxy/ssl/crl.pem
+
+backend puppet-catalog-backend
+  balance roundrobin
+  mode http
+  option tcp-check
+  stick on src
+  stick-table type ip size 1m expire 1m
+  server puppetserver {{getenv "PUPPETSERVER_CATALOG_BACKEND"}}:8140 check port 8140 inter 5s ssl verify required ca-file /usr/local/etc/haproxy/ssl/certs/ca.pem crl-file /usr/local/etc/haproxy/ssl/crl.pem
 
 backend puppet-ca-backend
   mode http
