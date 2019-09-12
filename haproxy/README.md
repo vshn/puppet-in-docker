@@ -16,7 +16,6 @@ for PuppetDB access.
 | ----                 | -----------------------------------------       | -------------      |
 | CA_SERVER            | Puppet CA server to request certificate         | puppetca.local     |
 | PUPPETCA_BACKEND     | Backend for Puppet CA traffic                   | puppetca.local     |
-| PUPPETDB_BACKEND     | Backend for PuppetDB                            | puppetdb.local     |
 | PUPPETSERVER_BACKEND | Backend for everything but catalog compilation  | puppetserver.local |
 | PUPPETSERVER_CATALOG_BACKEND | Backend for catalog compilation         | puppetserver.local |
 | SKIP_CRL_DOWNLOAD    | If set to true, skips download of CRL from CA   | -                  |
@@ -25,7 +24,7 @@ for PuppetDB access.
 ## Details
 
 * Ports exposed: 8140
-* Additional ports: 9000 (statistics), 8081 (PuppetDB SSL)
+* Additional ports: 9000 (statistics)
 * Volumes: -
 * Based on: `haproxy:1.7-alpine`
 * HAProxy statistics: HTTP port 9000

@@ -15,7 +15,6 @@ running in Docker. The following components are used:
 * [**Postgres**](https://www.postgresql.org/): Storage backend for PuppetDB
 * [**r10k**](https://docs.puppet.com/pe/latest/r10k.html): Puppet code deployment, featuring MCollective support
 * [**NATS**](https://nats.io/): Middleware for MCollective ([Choria](http://choria.io/))
-* [**Puppet explorer**](https://github.com/spotify/puppetexplorer): Dashboard for insights into PuppetDB data
 
 With the provided Docker Compose file all components can be started with a simple
 `docker-compose up`. This will take some time, as all Docker images are created locally

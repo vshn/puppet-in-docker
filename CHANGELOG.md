@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support splitting of catalog request to other puppetserver
 - Support haproxy logs to syslog UDP
 
+### Removed
+- PuppetDB backend from haproxy
+- Puppetexplorer
+
 ## v3.4.0
 ### Changed
 - Use latest puppetserver 5.3.8, with puppetdb-termini 5.2.9
