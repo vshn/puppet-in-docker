@@ -28,8 +28,11 @@ CMD ["puppetserver"]
 COPY Dockerfile /
 
 # TODO checksum check
-RUN apt-get update && \
-    apt-get install -y wget git netcat vim locales && \
+RUN apt-get update && apt-get -y install gnupg && \
+    echo "deb http://ppa.launchpad.net/vshn/puppetserver-tools/ubuntu bionic main" > /etc/apt/sources.list.d/vshn-ubuntu-puppetserver-tools-xenial.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv 90A6F6E5A19FC22CED8BFAD73EB114CF19617013 && \
+    apt-get update && \
+    apt-get install -y wget git netcat vim locales enc python3 && \
     locale-gen en_US.UTF-8
 RUN major_version=$(echo "${PUPPET_SERVER_VERSION}" | cut -d. -f1) && \
     wget https://apt.puppetlabs.com/puppet"$major_version"-release-"$UBUNTU_CODENAME".deb && \
