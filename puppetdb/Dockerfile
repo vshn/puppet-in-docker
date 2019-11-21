@@ -6,6 +6,7 @@ ENV DUMB_INIT_VERSION="1.2.2" \
     UBUNTU_CODENAME="bionic" \
     PUPPETDB_USER=puppetdb \
     PUPPETDB_PASSWORD=puppetdb \
+    PUPPETDB_URL="//postgres:5432/puppetdb" \
     PUPPETDB_JAVA_ARGS="-Djava.net.preferIPv4Stack=true -Xms256m -Xmx256m" \
     PUPPETDB_NODETTL="30d" \
     PUPPETDB_MAXPOOLSIZE=25 \
