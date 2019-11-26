@@ -73,5 +73,6 @@ else
       echo "---> Allowing ${CA_CONTROL_CN} to certificates API"
       sed -i -E 's/allow: "ca-master"/allow: "'${CA_CONTROL_CN}'"/' /etc/puppetlabs/puppetserver/conf.d/auth.conf
   fi
-
+  echo "---> Setting certname to $CN"
+  puppet config set certname "$CN" --section master
 fi
