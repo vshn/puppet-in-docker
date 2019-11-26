@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support splitting of catalog request to other puppetserver
 - Support haproxy logs to syslog UDP
 - Install VSHN ENC from PPA vshn/puppetserver-tools
+- Support configuration of puppet 5 CA api endpoint allow rule
 
 ### Removed
 - PuppetDB backend from haproxy

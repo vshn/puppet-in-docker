@@ -68,4 +68,10 @@ else
   fi
   echo "---> Configuring CA Expire / TTL to now +${CA_TTL}"
   puppet config set ca_ttl "$CA_TTL" --section master
+
+  if [ -n "$CA_CONTROL_CN" ]; then
+      echo "---> Allowing ${CA_CONTROL_CN} to certificates API"
+      sed -i -E 's/allow: "ca-master"/allow: "'${CA_CONTROL_CN}'"/' /etc/puppetlabs/puppetserver/conf.d/auth.conf
+  fi
+
 fi

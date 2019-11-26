@@ -57,6 +57,7 @@ COPY config/logback.xml /etc/puppetlabs/puppetserver/
 COPY config/request-logging.xml /etc/puppetlabs/puppetserver/
 COPY config/puppetdb.conf /etc/puppetlabs/puppet/
 COPY config/hiera.yaml /etc/puppetlabs/puppet/hiera.yaml
+COPY config/auth.conf /etc/puppetlabs/puppetserver/conf.d/auth.conf
 
 # Add scripts to get started easily
 COPY config/simple-enc /etc/puppetlabs/puppet/simple-enc
