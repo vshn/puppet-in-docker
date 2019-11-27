@@ -9,7 +9,9 @@ ENV DUMB_INIT_VERSION="1.2.2" \
     PUPPETDB_URL="//postgres:5432/puppetdb" \
     PUPPETDB_JAVA_ARGS="-Djava.net.preferIPv4Stack=true -Xms256m -Xmx256m" \
     PUPPETDB_NODETTL="30d" \
+    PUPPETDB_REPORTTTL="14d" \
     PUPPETDB_MAXPOOLSIZE=25 \
+    PUPPETDB_CONNTIMEOUT=500 \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
 LABEL org.label-schema.vendor="VSHN AG" \

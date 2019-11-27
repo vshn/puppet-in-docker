@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support haproxy logs to syslog UDP
 - Install VSHN ENC from PPA vshn/puppetserver-tools
 - Support configuration of puppet 5 CA api endpoint allow rule
+- Support configuration of PuppetDB report-ttl and connection-timeout
 
 ### Removed
 - PuppetDB backend from haproxy

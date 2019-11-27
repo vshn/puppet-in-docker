@@ -18,6 +18,8 @@ to be run in Docker.
 | POSTGRES_USER        | Username for Postgres connection                | -                        |
 | POSTGRES_URL         | Connection string                               | //postgres:5432/puppetdb |
 | PUPPETDB_NODETTL     | PuppetDB node-ttl (default was 7d)              | 30d                      |
+| PUPPETDB_REPORTTTL   | PuppetDB report-ttl                             | 14d                      |
+| PUPPETDB_CONNTIMEOUT | PuppetDB connection-timeout                     | 500                      |
 | PUPPETDB_WHITELIST   | Set to `true` to enable puppetdb whitelist      | - (false)                |
 | PUPPETDB_MAXPOOLSIZE | maximum-pool-size database setting              | 25                       |
 
