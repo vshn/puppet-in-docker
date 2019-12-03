@@ -5,11 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## v3.5.0
+This release improves the images so they can be used better on kubernetes.
+It should not break backwards compatibility with normal docker setups, 
+all default configuration values should stay the same.
+
 ### Added
 - Support splitting of catalog request to other puppetserver
 - Support haproxy logs to syslog UDP
 - Install VSHN ENC from PPA vshn/puppetserver-tools
-- Support configuration of puppet 5 CA api endpoint allow rule
+- Support configuration of Puppet 5 CA api endpoint allow rule
 - Support configuration of PuppetDB report-ttl and connection-timeout
 
 ### Removed
