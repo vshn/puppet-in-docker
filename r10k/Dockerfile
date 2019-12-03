@@ -5,7 +5,7 @@ ENV R10K_VERSION="2.6.4" \
     DUMB_INIT_VERSION="1.2.2" \
     UBUNTU_CODENAME="bionic" \
     PUPPET_MODULE_CHORIA_VERSION="0.12.0" \
-    PUPPET_MODULE_R10K_VERSION="6.8.0" \
+    PUPPET_MODULE_R10K_VERSION="7.0.0" \
     GWS_VERSION="0.2.0" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 

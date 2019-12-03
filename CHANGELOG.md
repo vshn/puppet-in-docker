@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.5.1
+### Fix
+- Update to puppet-r10 module version 7.0.0 - 6.x no longer available
+
 ## v3.5.0
 This release improves the images so they can be used better on kubernetes.
 It should not break backwards compatibility with normal docker setups, 
