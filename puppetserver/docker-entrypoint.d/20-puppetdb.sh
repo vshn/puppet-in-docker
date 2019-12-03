@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-CN=$(hostname)
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
 
 PUPPETDB_URL=https://${PUPPETDB_SERVER_URL}/status/v1/services/puppetdb-status
 
@@ -24,4 +26,6 @@ EOF
   puppet config set storeconfigs_backend puppetdb --section main
   puppet config set storeconfigs true --section main
   puppet config set reports puppetdb --section main
+  # this is important when running on docker with random hostnames
+  puppet config set certname ${CN} --section main
 fi

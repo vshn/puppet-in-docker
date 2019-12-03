@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 
-CN=$(hostname)
 CA_SERVER=${CA_SERVER:-puppetca.local}
-CERTFILE="/usr/local/etc/haproxy/ssl/certs/${CN}.pem"
-KEYFILE="/usr/local/etc/haproxy/ssl/private_keys/${CN}.pem"
 HAPROXY_PEM_FILE="/usr/local/etc/haproxy/ssl/haproxy.pem"
 CRL_FILE="/usr/local/etc/haproxy/ssl/crl.pem"
 
 CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
 CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
+
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
+
+CERTFILE="/usr/local/etc/haproxy/ssl/certs/${CN}.pem"
+KEYFILE="/usr/local/etc/haproxy/ssl/private_keys/${CN}.pem"
 
 if [ "${SKIP_CRL_DOWNLOAD}" == "true" ]; then
   echo "---> Skipping CRL download from ${CA_SERVER}"
@@ -45,5 +49,5 @@ if [ ! -f ${HAPROXY_PEM_FILE} ]; then
   fi
 
   # Prepare certificate for HAProxy
-  cat $CERTFILE $KEYFILE > $HAPROXY_PEM_FILE
+  cat $CERTFILE > $HAPROXY_PEM_FILE; echo "" >> $HAPROXY_PEM_FILE; cat $KEYFILE >> $HAPROXY_PEM_FILE
 fi

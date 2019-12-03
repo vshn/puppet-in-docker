@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-CN=$(hostname)
 CA_SERVER=${CA_SERVER:-puppetca.local}
 CA_TTL=${CA_TTL:-5y}
 AUTOSIGN=${AUTOSIGN:-true}
 
 CA_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate/ca
 CRL_API_URL=https://${CA_SERVER}:8140/puppet-ca/v1/certificate_revocation_list/ca
+
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
 
 # Configure Puppetserver to be a CA when enabled
 if [ "${CA}" != "enabled" ]; then
@@ -65,4 +68,11 @@ else
   fi
   echo "---> Configuring CA Expire / TTL to now +${CA_TTL}"
   puppet config set ca_ttl "$CA_TTL" --section master
+
+  if [ -n "$CA_CONTROL_CN" ]; then
+      echo "---> Allowing ${CA_CONTROL_CN} to certificates API"
+      sed -i -E 's/allow: "ca-master"/allow: "'${CA_CONTROL_CN}'"/' /etc/puppetlabs/puppetserver/conf.d/auth.conf
+  fi
+  echo "---> Setting certname to $CN"
+  puppet config set certname "$CN" --section master
 fi

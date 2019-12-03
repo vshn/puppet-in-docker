@@ -11,14 +11,17 @@ to be run in Docker.
 
 ### Environment variables
 
-| Name                 | Description                                     | Default value  |
-| ----                 | -----------------------------------------       | -------------  |
-| CA_SERVER            | Puppet CA server to request certificate         | puppetca.local |
-| POSTGRES_PASSWORD    | Password for Postgres user                      | -              |
-| POSTGRES_USER        | Username for Postgres connection                | -              |
-| PUPPETDB_NODETTL     | PuppetDB node-ttl (default was 7d)              | 30d            |
-| PUPPETDB_WHITELIST   | Set to `true` to enable puppetdb whitelist      | - (false)      |
-| PUPPETDB_MAXPOOLSIZE | maximum-pool-size database setting              | 25             |
+| Name                 | Description                                     | Default value            |
+| ----                 | -----------------------------------------       | -------------            |
+| CA_SERVER            | Puppet CA server to request certificate         | puppetca.local           |
+| POSTGRES_PASSWORD    | Password for Postgres user                      | -                        |
+| POSTGRES_USER        | Username for Postgres connection                | -                        |
+| POSTGRES_URL         | Connection string                               | //postgres:5432/puppetdb |
+| PUPPETDB_NODETTL     | PuppetDB node-ttl (default was 7d)              | 30d                      |
+| PUPPETDB_REPORTTTL   | PuppetDB report-ttl                             | 14d                      |
+| PUPPETDB_CONNTIMEOUT | PuppetDB connection-timeout                     | 500                      |
+| PUPPETDB_WHITELIST   | Set to `true` to enable puppetdb whitelist      | - (false)                |
+| PUPPETDB_MAXPOOLSIZE | maximum-pool-size database setting              | 25                       |
 
 ### PuppetDB Certificate Whitelist
 By default any valid certificate from the CA can query anything that's in the PuppetDB.

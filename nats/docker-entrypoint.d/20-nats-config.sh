@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-CN=$(hostname)
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
 CERTFILE="/etc/nats/ssl/certs/${CN}.pem"
 KEYFILE="/etc/nats/ssl/private_keys/${CN}.pem"
 CAFILE="/etc/nats/ssl/certs/ca.pem"

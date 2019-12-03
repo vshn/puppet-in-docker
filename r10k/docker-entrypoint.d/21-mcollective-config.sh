@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
 CA_SERVER=${CA_SERVER:-puppetca.local}
-IDENTITY=$(hostname)
 NATS=${NATS:-nats.local:4222}
 PUPPETDB=${PUPPETDB:-puppetdb.local}
 PUPPETSERVER=${PUPPETSERVER:-puppetserver.local}
+
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
+IDENTITY=$CN
 
 if [ -f /etc/puppetlabs/mcollective/plugin.d/choria.cfg ]; then
   echo "---> Configuring MCollective Choria Plugin"

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-CN=$(hostname)
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
 CA_SERVER=${CA_SERVER:-puppetca.local}
 CERTFILE="/etc/nats/ssl/certs/${CN}.pem"
 
