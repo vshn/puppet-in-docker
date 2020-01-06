@@ -1,8 +1,9 @@
 FROM ubuntu:18.04
 
 # docker build -t vshn/puppet-puppetserver:6.0 --build-arg "PUPPET_SERVER_VERSION=6.0.3" --build-arg "PUPPETDB_TERMINI_VERSION=6.0.2" .
-ARG PUPPET_SERVER_VERSION="5.3.7"
-ARG PUPPETDB_TERMINI_VERSION="5.2.4"
+ARG PUPPET_SERVER_VERSION="5.3.10"
+ARG PUPPETDB_TERMINI_VERSION="5.2.11"
+ARG PUPPET_AGENT_VERSION=""
 
 ENV DUMB_INIT_VERSION="1.2.2" \
     UBUNTU_CODENAME="bionic" \
@@ -39,9 +40,14 @@ RUN major_version=$(echo "${PUPPET_SERVER_VERSION}" | cut -d. -f1) && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     dpkg -i puppet"$major_version"-release-"$UBUNTU_CODENAME".deb && \
     dpkg -i dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
-    rm puppet"$major_version"-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
-    apt-get install --no-install-recommends -y puppetserver="$PUPPET_SERVER_VERSION"-1"$UBUNTU_CODENAME" puppetdb-termini="$PUPPETDB_TERMINI_VERSION"-1"$UBUNTU_CODENAME" && \
+    rm puppet"$major_version"-release-"$UBUNTU_CODENAME".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb
+
+# We need a matching puppet-agent version for puppetserver 6, otherwise there can be missing ruby dependencies
+RUN ["/bin/bash", "-c", "if [ ! -z ${PUPPET_AGENT_VERSION} ]; then apt-get install --no-install-recommends -y puppet-agent=${PUPPET_AGENT_VERSION}-1${UBUNTU_CODENAME}; fi"]
+
+# Install puppetserver and puppetdb-termini
+RUN apt-get install --no-install-recommends -y puppetserver="$PUPPET_SERVER_VERSION"-1"$UBUNTU_CODENAME" puppetdb-termini="$PUPPETDB_TERMINI_VERSION"-1"$UBUNTU_CODENAME" && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     find \
