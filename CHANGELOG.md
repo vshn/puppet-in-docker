@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## v3.6.0
 ### Changed
 - Use a the vshn hiera.yaml
 - Use up2date puppetserver and puppetdb-termini version
