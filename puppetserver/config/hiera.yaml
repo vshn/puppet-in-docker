@@ -3,7 +3,21 @@
   - yaml
 :hierarchy:
   - "nodes/%{::clientcert}"
-  - "common"
+  - "customers/%{::customer}/%{::project}/%{::stage}/%{::role}"
+  - "customers/%{::customer}/%{::project}/%{::stage}"
+  - "customers/%{::customer}/%{::project}/%{::role}"
+  - "customers/%{::customer}/%{::project}"
+  - "customers/%{::customer}/common"
+  - "locations/%{::location}/%{::region}/%{::zone}"
+  - "locations/%{::location}/%{::zone}"
+  - "locations/%{::location}/%{::region}"
+  - "locations/%{::location}"
+  - "private/%{::kernel}/%{::osfamily}"
+  - "common/%{::kernel}/%{::osfamily}"
+  - "private/%{::kernel}"
+  - "common/%{::kernel}"
+  - "private/private"
+  - "common/common"
 :merge_behavior: deeper
 :yaml:
-  :datadir: "/etc/puppetlabs/puppet/hieradata"
+  :datadir: "/etc/puppetlabs/code/hieradata"

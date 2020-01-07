@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Changed
+- Use a the vshn hiera.yaml
+- Use up2date puppetserver and puppetdb-termini version
+- Replace Puppetserver 6.4 with 6.7
+
+### Fixed
+- Ruby dependency issue with puppet-agent version for puppetserver 6
+
+### Remove
 
 ## v3.5.1
 ### Fix

@@ -22,13 +22,14 @@ before_script:
   script:
     - docker build -t ${REGISTRY_PATH}/puppet-puppetserver:${TAG}
         --build-arg "PUPPET_SERVER_VERSION=${PUPPET_SERVER_VERSION}"
-        --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}" puppetserver
+        --build-arg "PUPPETDB_TERMINI_VERSION=${PUPPETDB_TERMINI_VERSION}"
+        --build-arg "PUPPET_AGENT_VERSION=${PUPPET_AGENT_VERSION}" puppetserver
     - docker push ${REGISTRY_PATH}/puppet-puppetserver:${TAG}
 
 puppetserver_53:
   variables:
-    PUPPET_SERVER_VERSION: '5.3.8'
-    PUPPETDB_TERMINI_VERSION: '5.2.9'
+    PUPPET_SERVER_VERSION: '5.3.10'
+    PUPPETDB_TERMINI_VERSION: '5.2.11'
     TAG: "5.3-${CI_COMMIT_REF_NAME}"
   extends: .puppetserver
   only: [ devel, tags ]
@@ -40,18 +41,19 @@ puppetserver_53_master:
   extends: puppetserver_53
   only: [ master ]
 
-puppetserver_64:
+puppetserver_67:
   variables:
-    PUPPET_SERVER_VERSION: '6.4.0'
-    PUPPETDB_TERMINI_VERSION: '6.3.4'
-    TAG: "6.4-${CI_COMMIT_REF_NAME}"
+    PUPPET_SERVER_VERSION: '6.7.2'
+    PUPPETDB_TERMINI_VERSION: '6.7.2'
+    PUPPET_AGENT_VERSION: '6.7.2'
+    TAG: "6.7-${CI_COMMIT_REF_NAME}"
   extends: .puppetserver
   only: [ devel, tags ]
 
-puppetserver_64_master:
+puppetserver_67_master:
   variables:
-    TAG: "6.4"
-  extends: puppetserver_64
+    TAG: "6.7"
+  extends: puppetserver_67
   only: [ master ]
 
 # PuppetDB
