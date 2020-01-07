@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+## v3.6.1
+### Fixed
+- Fix ruby gem install options for current ruby gem version
 
 ## v3.6.0
 ### Changed
