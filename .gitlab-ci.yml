@@ -28,8 +28,8 @@ before_script:
 
 puppetserver_53:
   variables:
-    PUPPET_SERVER_VERSION: '5.3.10'
-    PUPPETDB_TERMINI_VERSION: '5.2.11'
+    PUPPET_SERVER_VERSION: '5.3.13'
+    PUPPETDB_TERMINI_VERSION: '5.2.15'
     TAG: "5.3-${CI_COMMIT_REF_NAME}"
   extends: .puppetserver
   only: [ devel, tags ]
@@ -56,6 +56,21 @@ puppetserver_67_master:
   extends: puppetserver_67
   only: [ master ]
 
+puppetserver_69:
+  variables:
+    PUPPET_SERVER_VERSION: '6.9.2'
+    PUPPETDB_TERMINI_VERSION: '6.9.1'
+    PUPPET_AGENT_VERSION: '6.9.0'
+    TAG: "6.9-${CI_COMMIT_REF_NAME}"
+  extends: .puppetserver
+  only: [ devel, tags ]
+
+puppetserver_69_master:
+  variables:
+    TAG: "6.9"
+  extends: puppetserver_69
+  only: [ master ]
+
 # PuppetDB
 .puppetdb:
   extends: .dockerbuild
@@ -65,7 +80,7 @@ puppetserver_67_master:
 
 puppetdb_52:
   variables:
-    PUPPETDB_VERSION: '5.2.9'
+    PUPPETDB_VERSION: '5.2.15'
     TAG: '5.2-${CI_COMMIT_REF_NAME}'
   extends: .puppetdb
   only: [ devel, tags ]
@@ -78,7 +93,7 @@ puppetdb_52_master:
 
 puppetdb_63:
   variables:
-    PUPPETDB_VERSION: '6.3.4'
+    PUPPETDB_VERSION: '6.3.7'
     TAG: "6.3-${CI_COMMIT_REF_NAME}"
   extends: .puppetdb
   only: [ devel, tags ]
@@ -87,6 +102,32 @@ puppetdb_63_master:
   variables:
     TAG: '6.3'
   extends: puppetdb_63
+  only: [ master ]
+
+puppetdb_67:
+  variables:
+    PUPPETDB_VERSION: '6.7.3'
+    TAG: "6.7-${CI_COMMIT_REF_NAME}"
+  extends: .puppetdb
+  only: [ devel, tags ]
+
+puppetdb_67_master:
+  variables:
+    TAG: '6.7'
+  extends: puppetdb_67
+  only: [ master ]
+
+puppetdb_69:
+  variables:
+    PUPPETDB_VERSION: '6.9.1'
+    TAG: "6.9-${CI_COMMIT_REF_NAME}"
+  extends: .puppetdb
+  only: [ devel, tags ]
+
+puppetdb_69_master:
+  variables:
+    TAG: '6.9'
+  extends: puppetdb_69
   only: [ master ]
 
 # r10k
@@ -98,7 +139,7 @@ puppetdb_63_master:
 
 r10k:
   variables:
-    PUPPET_AGENT_VERSION: 5.5.14
+    PUPPET_AGENT_VERSION: 5.5.20
     TAG: "5.5-${CI_COMMIT_REF_NAME}"
   extends: .r10k
   only: [ devel, tags ]
@@ -118,7 +159,7 @@ r10k_master:
 
 mcoclient:
   variables:
-    PUPPET_AGENT_VERSION: 5.5.14
+    PUPPET_AGENT_VERSION: 5.5.20
     TAG: "5.5-${CI_COMMIT_REF_NAME}"
   extends: .mcoclient
   only: [ devel, tags ]
@@ -157,7 +198,7 @@ haproxy_master:
 
 nats:
   variables:
-    NATS_VERSION: 1.4.0
+    NATS_VERSION: 1.4.1
     TAG: "1.4-${CI_COMMIT_REF_NAME}"
   extends: .nats
   only: [ devel, tags ]
