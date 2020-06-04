@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if [ -z "${CN}" ]; then
+  CN=$(hostname)
+fi
+CERTFILE="/etc/nats/ssl/certs/${CN}.pem"
+KEYFILE="/etc/nats/ssl/private_keys/${CN}.pem"
+CAFILE="/etc/nats/ssl/certs/ca.pem"
+
+if [ -f ${CERTFILE} ]; then
+  echo "---> Configuring NATS certificates"
+  sed -i "s|CERTFILE|$CERTFILE|" /etc/nats/nats-server.conf
+  sed -i "s|KEYFILE|$KEYFILE|" /etc/nats/nats-server.conf
+  sed -i "s|CAFILE|$CAFILE|" /etc/nats/nats-server.conf
+else
+  echo "---> Fatal: Certificate for NATS at ${CERTFILE} missing. Exiting."
+  exit 1
+fi
