@@ -195,18 +195,36 @@ haproxy_master:
   script:
     - docker build -t ${REGISTRY_PATH}/puppet-nats:${TAG} --build-arg "NATS_VERSION=${NATS_VERSION}" nats
     - docker push ${REGISTRY_PATH}/puppet-nats:${TAG}
+.nats2:
+  extends: .dockerbuild
+  script:
+    - docker build -t ${REGISTRY_PATH}/puppet-nats:${TAG} --build-arg "NATS_VERSION=${NATS_VERSION}" nats2
+    - docker push ${REGISTRY_PATH}/puppet-nats:${TAG}
 
-nats:
+nats14:
   variables:
     NATS_VERSION: 1.4.1
     TAG: "1.4-${CI_COMMIT_REF_NAME}"
   extends: .nats
   only: [ devel, tags ]
 
-nats_master:
+nats_14_master:
   variables:
     TAG: '1.4'
-  extends: nats
+  extends: nats14
+  only: [ master ]
+
+nats21:
+  variables:
+    NATS_VERSION: 2.1.7
+    TAG: "2.1-${CI_COMMIT_REF_NAME}"
+  extends: .nats2
+  only: [ devel, tags ]
+
+nats_21_master:
+  variables:
+    TAG: '2.1'
+  extends: nats21
   only: [ master ]
 
 # postgres
