@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## v3.7.0
+### Added
+- Support for Nats 2.1
+- Support for Puppetserver 6.9
+- Support for PuppetDB 6.7
+- Support for PuppetDB 6.9
+
+### Changed
+- Update to latest puppet 5.3 minor version
+- Update to latest puppetdb termini 5.2 minor version
+- Update to latest puppetdb 5.2 minor version
+- Update to latest puppetdb 6.3 minor version
+- Update to latest r10k puppet agent 5.5 minor version
+- Update to latest mcoclient puppet agent 5.5 minor version
+
 ## v3.6.1
 ### Fixed
 - Fix ruby gem install options for current ruby gem version
