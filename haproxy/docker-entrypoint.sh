@@ -8,7 +8,7 @@ if [ "$1" = 'haproxy' ]; then
   # Execute entrypoint hooks (runtime configurations)
   if [ -d "$DIR" ]; then
     echo "===> Executing entrypoint hooks under docker-entrypoint.d"
-    /usr/bin/run-parts --verbose --regex '\.(sh|rb)$' "$DIR"
+    /bin/run-parts --verbose --regex '\.(sh|rb)$' "$DIR"
     echo "===> End of hooks"
   fi
 
