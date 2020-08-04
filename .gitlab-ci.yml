@@ -28,8 +28,8 @@ before_script:
 
 puppetserver_53:
   variables:
-    PUPPET_SERVER_VERSION: '5.3.13'
-    PUPPETDB_TERMINI_VERSION: '5.2.15'
+    PUPPET_SERVER_VERSION: '5.3.14'
+    PUPPETDB_TERMINI_VERSION: '5.2.18'
     TAG: "5.3-${CI_COMMIT_REF_NAME}"
   extends: .puppetserver
   only: [ devel, tags ]
@@ -80,7 +80,7 @@ puppetserver_69_master:
 
 puppetdb_52:
   variables:
-    PUPPETDB_VERSION: '5.2.15'
+    PUPPETDB_VERSION: '5.2.18'
     TAG: '5.2-${CI_COMMIT_REF_NAME}'
   extends: .puppetdb
   only: [ devel, tags ]
@@ -139,7 +139,7 @@ puppetdb_69_master:
 
 r10k:
   variables:
-    PUPPET_AGENT_VERSION: 5.5.20
+    PUPPET_AGENT_VERSION: 5.5.21
     TAG: "5.5-${CI_COMMIT_REF_NAME}"
   extends: .r10k
   only: [ devel, tags ]
