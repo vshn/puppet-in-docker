@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v3.7.1
+### Changed
+- Update to latest puppetserver 5.3 minor version
+- Update to latest puppetdb termini 5.2 minor version
+- Update to latest puppetdb 5.2 minor version
+- Update to latest r10k puppet agent 5.5 minor version
+
 ## v3.7.0
 ### Added
 - Support for Nats 2.1
