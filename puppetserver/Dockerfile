@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
-# docker build -t vshn/puppet-puppetserver:6.0 --build-arg "PUPPET_SERVER_VERSION=6.0.3" --build-arg "PUPPETDB_TERMINI_VERSION=6.0.2" .
-ARG PUPPET_SERVER_VERSION="5.3.10"
-ARG PUPPETDB_TERMINI_VERSION="5.2.11"
+# You can build different variants using docker build -t vshn/puppet-puppetserver:7.0 --build-arg "PUPPET_SERVER_VERSION=7.0.0" --build-arg "PUPPETDB_TERMINI_VERSION=7.0.0"
+ARG PUPPET_SERVER_VERSION="6.16.0"
+ARG PUPPETDB_TERMINI_VERSION="6.16.1"
 ARG PUPPET_AGENT_VERSION=""
 
 ENV DUMB_INIT_VERSION="1.2.2" \
@@ -30,7 +30,7 @@ COPY Dockerfile /
 
 # TODO checksum check
 RUN apt-get update && apt-get -y install gnupg && \
-    echo "deb http://ppa.launchpad.net/vshn/puppetserver-tools/ubuntu bionic main" > /etc/apt/sources.list.d/vshn-ubuntu-puppetserver-tools-xenial.list && \
+    echo "deb http://ppa.launchpad.net/vshn/puppetserver-tools/ubuntu bionic main" > /etc/apt/sources.list.d/vshn-ubuntu-puppetserver-tools-bionic.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv 90A6F6E5A19FC22CED8BFAD73EB114CF19617013 && \
     apt-get update && \
     apt-get install -y wget git netcat vim locales enc python3 && \
