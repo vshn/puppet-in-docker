@@ -61,18 +61,18 @@ EOF
 else
   echo "---> Puppetserver acting as CA"
   echo "---> Configuring autosigning: ${AUTOSIGN}"
-  puppet config set autosign $AUTOSIGN --section master
+  puppet config set autosign $AUTOSIGN --section server
   if [ -n "${CA_NAME}" ]; then
     echo "---> Configuring CA Cert CN: ${CA_NAME}"
-    puppet config set ca_name "$CA_NAME" --section master
+    puppet config set ca_name "$CA_NAME" --section server
   fi
   echo "---> Configuring CA Expire / TTL to now +${CA_TTL}"
-  puppet config set ca_ttl "$CA_TTL" --section master
+  puppet config set ca_ttl "$CA_TTL" --section server
 
   if [ -n "$CA_CONTROL_CN" ]; then
       echo "---> Allowing ${CA_CONTROL_CN} to certificates API"
       sed -i -E 's/allow: "ca-master"/allow: "'${CA_CONTROL_CN}'"/' /etc/puppetlabs/puppetserver/conf.d/auth.conf
   fi
   echo "---> Setting certname to $CN"
-  puppet config set certname "$CN" --section master
+  puppet config set certname "$CN" --section server
 fi
