@@ -20,12 +20,12 @@ else
   echo "---> Choria plugin configuration file not found"
 fi
 
-if [ -f /etc/choria/client.cfg ]; then
+if [ -f /etc/choria/client.conf ]; then
   echo "---> Configuring Choria client"
-  sed -i "s|IDENTITY|$IDENTITY|" /etc/choria/client.cfg
+  sed -i "s|IDENTITY|$IDENTITY|" /etc/choria/client.conf
 fi
 
-if [ -f /etc/choria/server.cfg ]; then
+if [ -f /etc/choria/server.conf ]; then
   echo "---> Configuring Choria server"
-  sed -i "s|IDENTITY|$IDENTITY|" /etc/choria/server.cfg
+  sed -i "s|IDENTITY|$IDENTITY|" /etc/choria/server.conf
 fi
