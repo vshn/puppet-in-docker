@@ -21,10 +21,10 @@ fi
 
 if [ -n "$MCO_R10K_POLICY" ]; then
   echo "---> Configuring custom MCollective policy for r10k"
-  echo "$MCO_R10K_POLICY" > /etc/puppetlabs/mcollective/policies/r10k.policy
+  echo "$MCO_R10K_POLICY" > /etc/choria/policies/r10k.policy
 else
   echo "---> Configuring default MCollective policy for r10k"
-  echo "policy default allow" > /etc/puppetlabs/mcollective/policies/r10k.policy
+  echo "policy default allow" > /etc/choria/policies/r10k.policy
 fi
 
 if [ -n "$R10K_ADDITIONAL_CONFIG" ]; then

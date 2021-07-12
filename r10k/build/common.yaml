@@ -23,3 +23,5 @@ mcollective_choria::config:
   "middleware_hosts":
     - "NATS"
   "use_srv_records": false
+
+choria::manage_service: false

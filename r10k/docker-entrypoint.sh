@@ -12,9 +12,9 @@ if [ "$1" = 'r10k' ]; then
     echo "===> End of hooks"
   fi
 
-  echo "===> Starting r10k ${R10K_VERSION} and MCollective server"
-  ln -sf /proc/1/fd/1 /var/log/puppetlabs/mcollective.log
-  exec /opt/puppetlabs/puppet/bin/mcollectived --no-daemonize
+  echo "===> Starting r10k ${R10K_VERSION} and Choria server"
+  ln -sf /proc/1/fd/1 /var/log/choria.log
+  exec /usr/bin/choria server run --config /etc/choria/server.conf
 fi
 
 # Run CMD
