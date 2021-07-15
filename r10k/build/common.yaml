@@ -25,3 +25,4 @@ mcollective_choria::config:
   "use_srv": false
 
 choria::manage_service: false
+choria::identity: 'IDENTITY'

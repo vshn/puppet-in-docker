@@ -31,7 +31,7 @@ COPY Dockerfile /
 
 # TODO checksum check
 RUN apt-get update && \
-    apt-get install -y wget git netcat lsb-release cron && \
+    apt-get install -y wget git netcat lsb-release cron vim && \
     wget https://apt.puppetlabs.com/puppet6-release-"${UBUNTU_CODENAME}".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"$DUMB_INIT_VERSION"/dumb-init_"${DUMB_INIT_VERSION}"_amd64.deb && \
     wget https://github.com/StreakyCobra/gws/releases/download/"${GWS_VERSION}"/gws-"${GWS_VERSION}" -O /usr/local/bin/gws && \
