@@ -32,7 +32,7 @@ set to true and use the Choria helper:
 
 ```
 docker-compose run --rm -e SKIP_CERT_CONFIG=true deployer bash
-mco choria request_cert
+choria enroll
 cat .puppetlabs/etc/puppet/ssl/certs/$MCOLLECTIVE_CERTNAME.pem
 cat .puppetlabs/etc/puppet/ssl/certs/ca.pem
 cat .puppetlabs/etc/puppet/ssl/private_keys/$MCOLLECTIVE_CERTNAME.pem
@@ -49,12 +49,6 @@ docker-compose run --rm deployer mco r10k deploy <environment>
 See [voxpupuli/puppet-r10k](https://github.com/voxpupuli/puppet-r10k#mcollective-support) for a
 detailed documentation about the r10k plugin.
 
-
-## Details
-
-* Ports exposed: -
-* Volumes: -
-* Based on: `ubuntu:16.04`
 
 ### Entrypoint scripts
 

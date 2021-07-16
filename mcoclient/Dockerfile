@@ -1,10 +1,16 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-ARG PUPPET_AGENT_VERSION="5.5.7"
+ARG PUPPET_AGENT_VERSION="6.23.0"
 ENV DUMB_INIT_VERSION="1.2.2" \
-    UBUNTU_CODENAME="bionic" \
-    PUPPET_MODULE_CHORIA_VERSION="0.12.0" \
-    PUPPET_MODULE_R10K_VERSION="7.0.0" \
+    UBUNTU_CODENAME="focal" \
+    PUPPET_MODULE_CHORIA_VERSION="0.24.0" \
+    PUPPET_MODULE_MCOLLECTIVE_CHORIA_VERSION="0.21.0" \
+    PUPPET_MODULE_MCOLLECTIVE_AGENT_PUPPET_VERSION="2.4.1" \
+    PUPPET_MODULE_MCOLLECTIVE_AGENT_SERVICE_VERSION="4.0.1" \
+    PUPPET_MODULE_MCOLLECTIVE_AGENT_PACKAGE_VERSION="5.3.0" \
+    PUPPET_MODULE_MCOLLECTIVE_AGENT_FILEMGR_VERSION="2.0.1" \
+    PUPPET_MODULE_MCOLLECTIVE_UTIL_ACTIONPOLICY_VERSION="3.2.0" \
+    PUPPET_MODULE_R10K_VERSION="10.0.0" \
     MCO_CLIENT_USER="deployer" \
     PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
 
@@ -21,12 +27,12 @@ ENTRYPOINT ["dumb-init", "/docker-entrypoint.sh"]
 
 # TODO checksum check
 RUN apt-get update && \
-    apt-get install -y wget git netcat && \
-    wget https://apt.puppetlabs.com/puppet5-release-"${UBUNTU_CODENAME}".deb && \
+    apt-get install -y wget git netcat lsb-release cron vim && \
+    wget https://apt.puppetlabs.com/puppet6-release-"${UBUNTU_CODENAME}".deb && \
     wget https://github.com/Yelp/dumb-init/releases/download/v"${DUMB_INIT_VERSION}"/dumb-init_"${DUMB_INIT_VERSION}"_amd64.deb && \
-    dpkg -i puppet5-release-"${UBUNTU_CODENAME}".deb && \
+    dpkg -i puppet6-release-"${UBUNTU_CODENAME}".deb && \
     dpkg -i dumb-init_"${DUMB_INIT_VERSION}"_amd64.deb && \
-    rm puppet5-release-"${UBUNTU_CODENAME}".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
+    rm puppet6-release-"${UBUNTU_CODENAME}".deb dumb-init_"$DUMB_INIT_VERSION"_amd64.deb && \
     apt-get update && \
     apt-get install --no-install-recommends -y puppet-agent="${PUPPET_AGENT_VERSION}"-1"${UBUNTU_CODENAME}" && \
     apt-get clean && \
@@ -34,12 +40,17 @@ RUN apt-get update && \
     adduser --disabled-password --gecos "" "${MCO_CLIENT_USER}"
 
 # Install and configure MCollective using Choria from R.I.Pienaar
-RUN puppet module install choria-mcollective_choria --version "${PUPPET_MODULE_CHORIA_VERSION}" --target-dir /tmp/modules && \
-    puppet module install puppet-r10k --version "${PUPPET_MODULE_R10K_VERSION}" --target-dir /tmp/modules
+RUN puppet module install choria-choria --version "${PUPPET_MODULE_CHORIA_VERSION}" --target-dir /tmp/modules && \
+    puppet module install choria-mcollective_choria --version "${PUPPET_MODULE_MCOLLECTIVE_CHORIA_VERSION}" --target-dir /tmp/modules && \
+    puppet module install choria-mcollective_agent_puppet --version "${PUPPET_MODULE_MCOLLECTIVE_AGENT_PUPPET_VERSION}" --target-dir /tmp/modules && \
+    puppet module install choria-mcollective_agent_service --version "${PUPPET_MODULE_MCOLLECTIVE_AGENT_SERVICE_VERSION}" --target-dir /tmp/modules && \
+    puppet module install choria-mcollective_agent_package --version "${PUPPET_MODULE_MCOLLECTIVE_AGENT_PACKAGE_VERSION}" --target-dir /tmp/modules && \
+    puppet module install choria-mcollective_agent_filemgr --version "${PUPPET_MODULE_MCOLLECTIVE_AGENT_FILEMGR_VERSION}" --target-dir /tmp/modules && \
+    puppet module install choria-mcollective_util_actionpolicy --version "${PUPPET_MODULE_MCOLLECTIVE_UTIL_ACTIONPOLICY_VERSION}" --target-dir /tmp/modules
 COPY build/hiera.yaml build/common.yaml build/main.pp /tmp/
 RUN apt-get update && puppet apply --hiera_config=/tmp/hiera.yaml --modulepath=/tmp/modules /tmp/main.pp && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    chown -R $MCO_CLIENT_USER /etc/puppetlabs/mcollective/
+    chown -R $MCO_CLIENT_USER /etc/choria/
 
 # Add configuration file into the image
 COPY agent/git.ddl /opt/puppetlabs/mcollective/plugins/mcollective/agent/

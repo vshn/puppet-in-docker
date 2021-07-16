@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-CA_SERVER=${CA_SERVER:-puppetca.local}
+CA_SERVER=${CA_SERVER:-puppetca}
 MCOLLECTIVE_CERTNAME=${MCOLLECTIVE_CERTNAME:-deployer.mcollective}
-NATS=${NATS:-nats.local:4222}
-PUPPETDB=${PUPPETDB:-puppetdb.local}
-PUPPETSERVER=${PUPPETSERVER:-puppetserver.local}
+NATS=${NATS:-nats:4222}
+PUPPETDB=${PUPPETDB:-puppetdb}
+PUPPETSERVER=${PUPPETSERVER:-puppetserver}
 
 if [ "${SKIP_CERT_CONFIG}" == "true" ]; then
   echo "---> Skipping certificate configuration"
@@ -38,13 +38,13 @@ else
 fi
 
 # System configuration
-if [ -f /etc/puppetlabs/mcollective/plugin.d/choria.cfg ]; then
-  echo "---> Configuring MCollective Choria Plugin"
-  sed -i "s|PUPPETSERVER|$PUPPETSERVER|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
-  sed -i "s|PUPPETCA|$CA_SERVER|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
-  sed -i "s|PUPPETDB|$PUPPETDB|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
-  sed -i "s|\[\"NATS\"\]|$NATS|" /etc/puppetlabs/mcollective/plugin.d/choria.cfg
+if [ -f /etc/choria/plugin.d/choria.cfg ]; then
+  echo "---> Configuring Choria Plugin"
+  sed -i "s|PUPPETSERVER|$PUPPETSERVER|" /etc/choria/plugin.d/choria.cfg
+  sed -i "s|PUPPETCA|$CA_SERVER|" /etc/choria/plugin.d/choria.cfg
+  sed -i "s|PUPPETDB|$PUPPETDB|" /etc/choria/plugin.d/choria.cfg
+  sed -i "s|\[\"NATS\"\]|$NATS|" /etc/choria/plugin.d/choria.cfg
 else
-  echo "---> Fatal! MCollective Choria plugin configuration file not found"
+  echo "---> Fatal! Choria plugin configuration file not found"
   exit 1
 fi

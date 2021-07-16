@@ -26,3 +26,4 @@ mcollective_choria::config:
 
 choria::manage_service: false
 choria::identity: 'IDENTITY'
+choria::log_level: 'debug'
